@@ -49,4 +49,16 @@ h1 {
   transition: all 0.3s ease-in-out;
   background: #cf350e;
 }
+
+@media screen and (max-width: 575px) {
+  h1 {
+    font-size: 45px;
+  }
+  .banner__btn {
+    font-size: 16px;
+    padding: 5px 20px;
+    max-width: 200px;
+    margin-top: 30px;
+  }
+}
 </style>

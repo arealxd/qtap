@@ -68,7 +68,7 @@ const categoriesShows = () => {
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 100px;
+  margin-bottom: 500px;
   border-bottom: 1px solid #dadada;
   margin-top: -180px;
 }
@@ -92,6 +92,7 @@ const categoriesShows = () => {
   line-height: 30px;
   color: #b5b5b5;
   cursor: pointer;
+  white-space: nowrap;
 }
 .categories__view-all:hover {
   transition: all 0.5s ease;
@@ -127,5 +128,10 @@ const categoriesShows = () => {
   text-transform: uppercase;
   color: #9e9e9e;
   max-width: 98px;
+}
+@media screen and (max-width: 575px) {
+  .categories__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 </style>

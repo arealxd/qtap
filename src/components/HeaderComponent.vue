@@ -9,6 +9,8 @@ const searchValue = ref("");
 const doSearch = () => {
   console.log(searchValue.value);
 };
+
+const navOpen = ref(true);
 </script>
 
 <template>
@@ -42,9 +44,58 @@ const doSearch = () => {
       <img class="header__user-icon" src="../assets/img/userIcon.svg" alt="" />
     </div>
   </div>
+  <div class="header-mobile">
+    <img class="header__logo" src="../assets/img/logo.svg" alt="" @click="router.push('/')" />
+    <!-- <img src="../assets/img/burger_menu.png" class="burger__menu-btn" alt="" /> -->
+    <div id="sidemenu">
+      <button
+        class="sidemenu__btn"
+        v-on:click="navOpen = !navOpen"
+        v-bind:class="{ active: navOpen }"
+      >
+        <span class="top"></span>
+        <span class="mid"></span>
+        <span class="bottom"></span>
+      </button>
+      <transition name="translateX">
+        <nav v-show="navOpen">
+          <div class="sidemenu__wrapper">
+            <ul class="sidemenu__list">
+              <li class="sidemenu__item"><p>Home</p></li>
+              <li class="sidemenu__item"><p>About Us</p></li>
+              <li class="sidemenu__item"><p>Blog</p></li>
+              <li class="sidemenu__item"><p>Category</p></li>
+              <li class="sidemenu__item"><p>Contact Us</p></li>
+              <li class="sidemenu__item"><p>My profile</p></li>
+              <select class="header__city-mobile" name="cities" id="cities">
+                <option hidden>City</option>
+                <option value="Astana">Astana</option>
+                <option value="Almaty">Almaty</option>
+                <option value="Shymkent">Shymkent</option>
+                <option value="Aktau">Aktau</option>
+              </select>
+              <form class="header__search-form-mobile" @submit.prevent="doSearch">
+                <input
+                  v-model="searchValue"
+                  class="header__search"
+                  type="text"
+                  placeholder="&#xF002;  Search..."
+                  style="font-family: Arial, FontAwesome"
+                />
+                <input type="submit" hidden />
+              </form>
+            </ul>
+          </div>
+        </nav>
+      </transition>
+    </div>
+  </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.header-mobile {
+  display: none;
+}
 .header {
   display: flex;
   align-items: center;
@@ -127,5 +178,167 @@ const doSearch = () => {
 .header__user-icon {
   width: 45px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 575px) {
+  .header {
+    display: none;
+  }
+  .header-mobile {
+    display: flex;
+    align-items: center;
+    padding: 0px 20px;
+    margin-top: -10px;
+    width: 100%;
+  }
+
+  #sidemenu {
+    width: 100%;
+    nav {
+      width: 200px;
+      background: grey;
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 99;
+    }
+
+    .sidemenu {
+      &__btn {
+        margin-left: auto;
+        display: block;
+        width: 50px;
+        height: 50px;
+        background: transparent;
+        border: none;
+        position: fixed;
+        z-index: 100;
+        appearance: none;
+        cursor: pointer;
+        outline: none;
+        right: 10px;
+        top: 15px;
+
+        span {
+          display: block;
+          width: 20px;
+          height: 2px;
+          margin: auto;
+          background: rgb(0, 0, 0);
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          transition: all 0.4s ease;
+
+          &.top {
+            transform: translateY(-8px);
+          }
+
+          &.bottom {
+            transform: translateY(8px);
+          }
+        }
+        &.active {
+          span {
+            background: white;
+          }
+          .top {
+            transform: rotate(-45deg);
+          }
+          .mid {
+            transform: translateX(-20px) rotate(360deg);
+            opacity: 0;
+          }
+          .bottom {
+            transform: rotate(45deg);
+          }
+        }
+      }
+
+      &__wrapper {
+        padding-top: 50px;
+      }
+
+      &__list {
+        padding-top: 50px;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        margin-top: 20px;
+      }
+
+      &__item {
+        a {
+          text-decoration: none;
+          line-height: 1.6em;
+          font-size: 1.6em;
+          padding: 0.5em;
+          display: block;
+          color: white;
+          transition: 0.4s ease;
+
+          &:hover {
+            background: lightgrey;
+            color: dimgrey;
+          }
+        }
+      }
+    }
+  }
+
+  .translateX-enter {
+    transform: translateX(200px);
+    opacity: 0;
+  }
+
+  .translateX-enter-active,
+  .translateX-leave-active {
+    transform-origin: top left 0;
+    transition: 0.2s ease;
+  }
+
+  .translateX-leave-to {
+    transform: translateX(200px);
+    opacity: 0;
+  }
+  .sidemenu__item {
+    font-size: 1.3rem;
+    color: white;
+    margin-left: 40px;
+  }
+  .sidemenu__list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  .sidemenu__wrapper {
+    padding-bottom: 50px;
+  }
+  .header__city-mobile {
+    border-radius: 100px;
+    background: transparent;
+    border: none;
+    font-size: 1.3rem;
+    color: white;
+    font-weight: 500;
+    outline: none;
+    border-right: 10px solid transparent;
+    cursor: pointer;
+    width: 60%;
+    margin-left: 36px;
+  }
+  select option {
+    margin: 40px;
+    background: rgb(63, 63, 63);
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  }
+  .header__search-form-mobile {
+    width: 90%;
+    margin-left: 10px;
+  }
 }
 </style>
