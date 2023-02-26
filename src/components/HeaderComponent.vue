@@ -10,7 +10,7 @@ const doSearch = () => {
   console.log(searchValue.value);
 };
 
-const navOpen = ref(true);
+const navOpen = ref(false);
 </script>
 
 <template>
