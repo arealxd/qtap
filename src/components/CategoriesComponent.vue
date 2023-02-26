@@ -133,5 +133,9 @@ const categoriesShows = () => {
   .categories__list {
     grid-template-columns: repeat(2, 1fr);
   }
+  .categories__view-all:hover {
+    transition: all 0.5s ease;
+    color: #b5b5b5;
+  }
 }
 </style>
