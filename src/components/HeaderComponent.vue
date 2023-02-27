@@ -46,7 +46,7 @@ const navOpen = ref(false);
       <img class="header__user-icon" src="../assets/img/userIcon.svg" alt="" />
     </div>
   </div>
-  <div class="header-mobile">
+  <div class="header-mobile" :class="{ 'header__active-burger': navOpen }">
     <img class="header__logo" src="../assets/img/logo.svg" alt="" @click="router.push('/')" />
     <!-- <img src="../assets/img/burger_menu.png" class="burger__menu-btn" alt="" /> -->
     <div id="sidemenu">
@@ -193,6 +193,10 @@ const navOpen = ref(false);
     margin-top: -10px;
     width: 100%;
   }
+  .header__active-burger {
+    margin-top: -3px;
+    margin-bottom: 23px;
+  }
 
   #sidemenu {
     width: 100%;
@@ -243,7 +247,7 @@ const navOpen = ref(false);
         &.active {
           position: fixed;
           right: 10px;
-          top: 20px;
+          top: 15px;
           span {
             background: white;
           }
