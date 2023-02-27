@@ -8,6 +8,7 @@ const searchValue = ref("");
 
 const doSearch = () => {
   console.log(searchValue.value);
+  navOpen.value = false;
 };
 
 const navOpen = ref(false);
@@ -61,6 +62,16 @@ const navOpen = ref(false);
         <nav v-show="navOpen">
           <div class="sidemenu__wrapper">
             <ul class="sidemenu__list">
+              <form class="header__search-form-mobile" @submit.prevent="doSearch">
+                <input
+                  v-model="searchValue"
+                  class="header__search"
+                  type="text"
+                  placeholder="&#xF002;  Search..."
+                  style="font-family: Arial, FontAwesome"
+                />
+                <input type="submit" hidden />
+              </form>
               <li class="sidemenu__item"><p>Home</p></li>
               <li class="sidemenu__item"><p>About Us</p></li>
               <li class="sidemenu__item"><p>Blog</p></li>
@@ -74,16 +85,6 @@ const navOpen = ref(false);
                 <option value="Shymkent">Shymkent</option>
                 <option value="Aktau">Aktau</option>
               </select>
-              <form class="header__search-form-mobile" @submit.prevent="doSearch">
-                <input
-                  v-model="searchValue"
-                  class="header__search"
-                  type="text"
-                  placeholder="&#xF002;  Search..."
-                  style="font-family: Arial, FontAwesome"
-                />
-                <input type="submit" hidden />
-              </form>
             </ul>
           </div>
         </nav>
@@ -270,7 +271,7 @@ const navOpen = ref(false);
         list-style: none;
         padding: 0;
         margin: 0;
-        margin-top: 20px;
+        margin-top: 30px;
       }
 
       &__item {
