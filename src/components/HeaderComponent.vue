@@ -211,13 +211,14 @@ const navOpen = ref(false);
         height: 50px;
         background: transparent;
         border: none;
-        position: fixed;
+        // position: fixed;
+        position: relative;
         z-index: 100;
         appearance: none;
         cursor: pointer;
         outline: none;
-        right: 10px;
-        top: 15px;
+        // right: 10px;
+        // top: 15px;
 
         span {
           display: block;
@@ -241,6 +242,9 @@ const navOpen = ref(false);
           }
         }
         &.active {
+          position: fixed;
+          right: 10px;
+          top: 15px;
           span {
             background: white;
           }
