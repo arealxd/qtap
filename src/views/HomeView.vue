@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import HeaderComponent from "../components/HeaderComponent.vue";
 import CategoriesComponent from "../components/CategoriesComponent.vue";
+import RecommendedEvents from "../components/RecommendedEvents.vue";
+import OurPartners from "../components/OurPartners.vue";
+import UnforgettableMoments from "../components/UnforgettableMoments.vue";
+import FooterComponent from "../components/FooterComponent.vue";
 </script>
 
 <template>
@@ -10,6 +14,10 @@ import CategoriesComponent from "../components/CategoriesComponent.vue";
     <p class="banner__btn">Select your location</p>
   </div>
   <CategoriesComponent />
+  <RecommendedEvents />
+  <OurPartners />
+  <UnforgettableMoments />
+  <FooterComponent />
 </template>
 
 <style scoped>

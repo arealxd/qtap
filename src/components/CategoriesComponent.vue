@@ -68,7 +68,6 @@ const categoriesShows = () => {
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 500px;
   border-bottom: 1px solid #dadada;
   margin-top: -180px;
 }
