@@ -12,9 +12,110 @@ const showAllHandler = () => {
   if (showAll.value) {
     loopQuantity.value = 4;
   } else {
-    loopQuantity.value = 12;
+    loopQuantity.value = data.length;
   }
 };
+
+const favorites = ref<Number[]>([]);
+
+const data = [
+  {
+    id: 1,
+    address: "Baizakova 70, Almaty",
+    name: "Exhibition «Van Gogh. Living canvases». Museum Lumiere-Hall",
+    rating: 4,
+    price: "10 000",
+    image: "/images/event1.jpg",
+  },
+  {
+    id: 2,
+    address: "Abaya 70A, Almaty",
+    name: 'Stand-up solo performance "Better than it seems"',
+    rating: 5,
+    price: "5 000",
+    image: "/images/event2.jpg",
+  },
+  {
+    id: 3,
+    address: "Tole bi 237, Almaty",
+    name: "Big Stand Up Concert",
+    rating: 3,
+    price: "4 000",
+    image: "/images/event3.jpg",
+  },
+  {
+    id: 4,
+    address: "Al-Farabi 40/4, Almaty",
+    name: "Exhibition «Klimt and Schiele. Modern Gold»",
+    rating: 4,
+    price: "9 000",
+    image: "/images/event4.jpg",
+  },
+  {
+    id: 5,
+    address: "Manasa 34, Almaty",
+    name: "The Beatles in Jazz - Saule Zharmenova Trio",
+    rating: 3,
+    price: "10 500",
+    image: "/images/event5.jpg",
+  },
+  {
+    id: 6,
+    address: "Saina 18, Almaty",
+    name: 'Open microphone "Sanych Standup Show"',
+    rating: 4,
+    price: "17 000",
+    image: "/images/event6.jpg",
+  },
+  {
+    id: 7,
+    address: "Zharokova 117a, Almaty",
+    name: "All stars jam session - Jazz music and improvisation",
+    rating: 3,
+    price: "4 500",
+    image: "/images/event7.jpg",
+  },
+  {
+    id: 8,
+    address: "Medeu, Almaty",
+    name: "Barber Festival SHARPLINES",
+    rating: 4,
+    price: "4 000",
+    image: "/images/event8.jpg",
+  },
+  {
+    id: 9,
+    address: "Abaya 14a, Astana",
+    name: "Metal Cover Nights",
+    rating: 2,
+    price: "12 000",
+    image: "/images/event9.jpg",
+  },
+  {
+    id: 10,
+    address: "Sharipova 34, Astana",
+    name: "Dancing on Stones — R.E.D. Trio",
+    rating: 5,
+    price: "11 000",
+    image: "/images/event10.jpg",
+  },
+  {
+    id: 11,
+    address: "Gogol 34, Astana",
+    name: "Festival stories — Irena Aravina and JAZZ HOUSE",
+    rating: 4,
+    price: "17 000",
+    image: "/images/event11.jpg",
+  },
+  {
+    id: 12,
+    address: "Nazarbayeva 34, Astana",
+    name: "Khomenkov band – Mainstream & Fusion",
+    rating: 3,
+    price: "9 000",
+    image: "/images/event12.jpg",
+  },
+];
 </script>
 
 <template>
@@ -28,23 +129,29 @@ const showAllHandler = () => {
     </div>
 
     <div class="cards" v-auto-animate="{ duration: 500 }">
-      <div class="card_image-block" v-for="i in loopQuantity" :key="i">
-        <img class="card_image" src="../assets/img/event.jpg" alt="" />
+      <div class="card_image-block" v-for="i in data.slice(0, loopQuantity)" :key="i.id">
+        <img class="card_image" :src="i.image" alt="" />
         <img
-          v-if="!fav"
-          @click="fav = true"
+          v-if="!favorites.includes(i.id)"
+          @click="favorites.push(i.id)"
           class="nofav_icon"
           src="../assets/img/nofav.png"
           alt=""
         />
-        <img v-else @click="fav = false" class="nofav_icon" src="../assets/img/fav.png" alt="" />
+        <img
+          v-else
+          @click="favorites.splice(favorites.indexOf(i.id), 1)"
+          class="nofav_icon"
+          src="../assets/img/fav.png"
+          alt=""
+        />
         <div class="card_details">
-          <p class="texts_title">Baizakova 70, Almaty</p>
+          <p class="texts_title">{{ i.address }}</p>
           <p class="texts_description">
-            Exhibition «Van Gogh. Living canvases». Museum Lumiere-Hall
+            {{ i.name }}
           </p>
-          <star-rating :star-size="15" :read-only="true" v-model:rating="rating" />
-          <p class="texts_price">15 000 ₸</p>
+          <star-rating :star-size="15" :read-only="true" v-model:rating="i.rating" />
+          <p class="texts_price">{{ i.price }} ₸</p>
         </div>
       </div>
     </div>
@@ -103,7 +210,7 @@ const showAllHandler = () => {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: center;
+  /* align-items: center; */
   margin: 0 auto;
   margin-top: 40px;
   width: 100%;
@@ -116,6 +223,8 @@ const showAllHandler = () => {
 .card_image {
   width: 100%;
   max-width: 250px;
+  height: 100vh;
+  max-height: 250px;
   border-radius: 20px;
 }
 .nofav_icon {
@@ -130,6 +239,7 @@ const showAllHandler = () => {
   gap: 5px;
   width: 100%;
   max-width: 250px;
+  margin-top: 15px;
 }
 .texts_title {
   font-weight: 400;

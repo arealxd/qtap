@@ -4,7 +4,7 @@
   <div class="places">
     <div class="gallery_block"><p class="gallery_text">GALLERY</p></div>
     <h1>Unforgettable moments</h1>
-    <div class="images">
+    <div class="images container">
       <div class="left">
         <img src="../assets/img/mountains.jpg" alt="" />
         <p class="image_text">Mountains</p>
@@ -32,6 +32,7 @@
 <style scoped>
 img {
   border-radius: 10px;
+  opacity: 0.6;
 }
 .places {
   display: flex;
@@ -66,6 +67,13 @@ h1 {
 .left {
   width: 100%;
   position: relative;
+  cursor: pointer;
+  background-color: Black;
+  border-radius: 10px;
+}
+.left:hover img {
+  transition: all 0.5s ease;
+  opacity: 1;
 }
 .right {
   width: 100%;
@@ -82,6 +90,13 @@ h1 {
 }
 .right_upper {
   position: relative;
+  cursor: pointer;
+  background-color: Black;
+  border-radius: 10px;
+}
+.right_upper:hover img {
+  transition: all 0.5s ease;
+  opacity: 1;
 }
 .right_upper img {
   max-height: 287px;
@@ -98,15 +113,29 @@ h1 {
   width: 100%;
   height: 100%;
 }
+.right_under-left:hover img {
+  transition: all 0.5s ease;
+  opacity: 1;
+}
 .right_under-left {
   position: relative;
   width: 100%;
   height: 100%;
+  cursor: pointer;
+  background-color: Black;
+  border-radius: 10px;
+}
+.right_under-right:hover img {
+  transition: all 0.5s ease;
+  opacity: 1;
 }
 .right_under-right {
   position: relative;
   width: 100%;
   height: 100%;
+  cursor: pointer;
+  background-color: Black;
+  border-radius: 10px;
 }
 .image_text {
   font-weight: 600;

@@ -5,13 +5,13 @@
     <div class="gallery_block">
       <p class="gallery_text">WE ARE ALWAYS HAPPY TO HELP YOU FIND SUITABLE PLACES.</p>
     </div>
-    <div class="footer_nav">
+    <div class="footer_nav container">
       <div class="logo">
         <router-link class="router" to="/">
           <img src="../assets/img/logo.svg" alt="" />
         </router-link>
         <p class="logo_text">Travel around the Kazakhstan.</p>
-        <p class="copyright">© 2022 QTAP All rights reserved.</p>
+        <p class="copyright">© 2023 QTAP All rights reserved.</p>
       </div>
       <div class="contact">
         <p class="contact_text">Contact Information</p>

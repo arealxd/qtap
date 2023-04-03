@@ -48,9 +48,29 @@ const categoriesShows = () => {
         <img class="categories__category-image" src="../assets/img/cat_6.png" alt="" />
         <p class="categories__category-name">food</p>
       </div>
-      <div v-for="(i, index) in catNumber" :key="index" class="categories__category">
-        <img class="categories__category-image" src="../assets/img/cat_4.png" alt="" />
-        <p class="categories__category-name">shopping centers</p>
+      <div v-if="!showAll" class="categories__category">
+        <img class="categories__category-image" src="../assets/img/cat_7.png" alt="" />
+        <p class="categories__category-name">Unusual places</p>
+      </div>
+      <div v-if="!showAll" class="categories__category">
+        <img class="categories__category-image" src="../assets/img/cat_8.png" alt="" />
+        <p class="categories__category-name">Forests</p>
+      </div>
+      <div v-if="!showAll" class="categories__category">
+        <img class="categories__category-image" src="../assets/img/cat_9.png" alt="" />
+        <p class="categories__category-name">Gardens</p>
+      </div>
+      <div v-if="!showAll" class="categories__category">
+        <img class="categories__category-image" src="../assets/img/cat_10.png" alt="" />
+        <p class="categories__category-name">Zoos</p>
+      </div>
+      <div v-if="!showAll" class="categories__category">
+        <img class="categories__category-image" src="../assets/img/cat_11.png" alt="" />
+        <p class="categories__category-name">Beekeeping</p>
+      </div>
+      <div v-if="!showAll" class="categories__category">
+        <img class="categories__category-image" src="../assets/img/cat_12.png" alt="" />
+        <p class="categories__category-name">flower gardens</p>
       </div>
     </div>
   </div>

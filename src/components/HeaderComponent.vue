@@ -3,7 +3,6 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-
 const searchValue = ref("");
 
 const doSearch = () => {
@@ -13,37 +12,88 @@ const doSearch = () => {
 };
 
 const navOpen = ref(false);
+const profilePopup = ref(false);
+
+const profileClick = () => {
+  if (localStorage.getItem("userState") === "authorized") {
+    profilePopup.value = !profilePopup.value;
+  } else {
+    router.push("/auth/login");
+  }
+};
+
+const userName = localStorage.getItem("name") + " " + localStorage.getItem("surname");
+const userEmail = localStorage.getItem("email");
+
+const city = ref(localStorage.getItem("city"));
+
+const setNewCity = (newCity: string | null) => {
+  localStorage.setItem("city", newCity?.toString() ?? "");
+};
 </script>
 
 <template>
   <div class="header">
-    <div class="header__left">
-      <p class="header__item" @click="router.push('/')">Home</p>
-      <p class="header__item">About Us</p>
-      <p class="header__item">Blog</p>
-      <p class="header__item">Category</p>
-      <p class="header__item">Contact Us</p>
-    </div>
-    <img class="header__logo" src="../assets/img/logo.svg" alt="" @click="router.push('/')" />
-    <div class="header__right">
-      <form class="header__search-form" @submit.prevent="doSearch">
-        <input
-          v-model="searchValue"
-          class="header__search"
-          type="text"
-          placeholder="&#xF002;  Search..."
-          style="font-family: Arial, FontAwesome"
+    <div class="header__container container">
+      <div class="header__left">
+        <p class="header__item" @click="router.push('/')">Home</p>
+        <p class="header__item">About Us</p>
+        <p class="header__item">Blog</p>
+        <p class="header__item">Category</p>
+        <p class="header__item">Contact Us</p>
+      </div>
+      <img class="header__logo" src="../assets/img/logo.svg" alt="" @click="router.push('/')" />
+      <div class="header__right">
+        <form class="header__search-form" @submit.prevent="doSearch">
+          <input
+            v-model="searchValue"
+            class="header__search"
+            type="text"
+            placeholder="&#xF002;  Search..."
+            style="font-family: Arial, FontAwesome"
+          />
+          <input type="submit" hidden />
+        </form>
+        <select
+          @change="setNewCity(city)"
+          v-model="city"
+          class="header__city"
+          name="cities"
+          id="cities"
+        >
+          <option hidden>City</option>
+          <option value="Astana">Astana</option>
+          <option value="Almaty">Almaty</option>
+          <option value="Shymkent">Shymkent</option>
+          <option value="Kyzylorda">Kyzylorda</option>
+          <option value="Atyrau">Atyrau</option>
+          <option value="Karagandy">Karagandy</option>
+          <option value="Pavlodar">Pavlodar</option>
+          <option value="Kokshetau">Kokshetau</option>
+        </select>
+        <img
+          @click="profileClick"
+          class="header__user-icon"
+          src="../assets/img/userIcon.svg"
+          alt=""
         />
-        <input type="submit" hidden />
-      </form>
-      <select class="header__city" name="cities" id="cities">
-        <option hidden>City</option>
-        <option value="Astana">Astana</option>
-        <option value="Almaty">Almaty</option>
-        <option value="Shymkent">Shymkent</option>
-        <option value="Aktau">Aktau</option>
-      </select>
-      <img class="header__user-icon" src="../assets/img/userIcon.svg" alt="" />
+
+        <div class="profile-popup" v-if="profilePopup">
+          <img src="../assets/img/userAva.png" alt="" />
+          <p class="user-name">{{ userName }}</p>
+          <p class="user-email">{{ userEmail }}</p>
+          <hr />
+          <div class="notification">
+            <img src="../assets/img/icon_notification.png" alt="" />
+            <p class="notification-text">Notifications</p>
+          </div>
+          <div class="notification">
+            <img src="../assets/img/icon_fav.png" alt="" />
+            <p class="notification-text">Favorites</p>
+          </div>
+          <p class="edit-profile">Edit profile</p>
+        </div>
+      </div>
     </div>
   </div>
   <div class="header-mobile" :class="{ 'header__active-burger': navOpen }">
@@ -92,6 +142,8 @@ const navOpen = ref(false);
       </transition>
     </div>
   </div>
+
+  <div v-if="profilePopup" @click="profilePopup = false" class="cover_dark"></div>
 </template>
 
 <style scoped lang="scss">
@@ -99,6 +151,11 @@ const navOpen = ref(false);
   display: none;
 }
 .header {
+  padding-block: 1rem;
+  background-color: #ffffffee;
+  border-bottom: 1px solid #e9e9e9;
+}
+.header__container {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -109,6 +166,7 @@ const navOpen = ref(false);
   gap: 36px;
 }
 .header__right {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 19px;
@@ -180,6 +238,89 @@ const navOpen = ref(false);
 .header__user-icon {
   width: 45px;
   cursor: pointer;
+}
+
+.profile-popup {
+  position: absolute;
+  padding: 37px 46px;
+  background: #ffffff;
+  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  z-index: 10;
+  right: 0;
+  top: 62px;
+  text-align: center;
+}
+.cover_dark {
+  background: #000000;
+  opacity: 0.5;
+  z-index: 9;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.user-name {
+  font-weight: 500;
+  font-size: 20px;
+  color: #202020;
+  margin-top: 10px;
+}
+.user-email {
+  font-weight: 275;
+  font-size: 13px;
+  color: #202020;
+}
+
+hr {
+  width: 250px;
+  margin-top: 10px;
+  border-top: 2px solid #dcdbdd;
+}
+
+.notification {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 24px;
+  cursor: pointer;
+}
+
+.notification img {
+  width: 24px;
+  height: 24px;
+}
+
+.notification-text {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: #202020;
+}
+
+.notification:hover .notification-text {
+  transition: all 0.3s ease-out;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 2px;
+}
+
+.edit-profile {
+  font-weight: 500;
+  font-size: 15px;
+  color: #ffffff;
+  padding: 8px 0px;
+  width: 100%;
+  max-width: 155px;
+  background: #009580;
+  border-radius: 12px;
+  margin: 0 auto;
+  margin-top: 25px;
+  cursor: pointer;
+}
+
+.edit-profile:hover {
+  transition: all 0.3s ease-out;
+  background: #035a4e;
 }
 
 @media screen and (max-width: 575px) {
