@@ -62,11 +62,27 @@ const feedback = ref([
 ]);
 
 const nextFeedback = () => {
-  console.log("next");
+  if (thirdIndex.value === feedback.value.length - 1) {
+    firstIndex.value = 0;
+    secondIndex.value = 1;
+    thirdIndex.value = 2;
+  } else {
+    firstIndex.value++;
+    secondIndex.value++;
+    thirdIndex.value++;
+  }
 };
 
 const previousFeedback = () => {
-  console.log("previous");
+  if (firstIndex.value === 0) {
+    firstIndex.value = feedback.value.length - 3;
+    secondIndex.value = feedback.value.length - 2;
+    thirdIndex.value = feedback.value.length - 1;
+  } else {
+    firstIndex.value--;
+    secondIndex.value--;
+    thirdIndex.value--;
+  }
 };
 </script>
 

@@ -124,7 +124,7 @@ watch(successRegister, () => {
     setTimeout(() => {
       successRegister.value = false;
       authLevel.value = "login";
-    }, 3000);
+    }, 2000);
   }
 });
 

@@ -30,6 +30,12 @@ const city = ref(localStorage.getItem("city"));
 const setNewCity = (newCity: string | null) => {
   localStorage.setItem("city", newCity?.toString() ?? "");
 };
+
+const logout = () => {
+  localStorage.setItem("userState", "unauthorized");
+  profilePopup.value = false;
+  router.push("/auth/login");
+};
 </script>
 
 <template>
@@ -92,6 +98,7 @@ const setNewCity = (newCity: string | null) => {
             <p class="notification-text">Favorites</p>
           </div>
           <p class="edit-profile">Edit profile</p>
+          <p class="logout-profile" @click="logout">Logout</p>
         </div>
       </div>
     </div>
@@ -316,11 +323,30 @@ hr {
   margin: 0 auto;
   margin-top: 25px;
   cursor: pointer;
+  transition: all 0.3s ease-out;
 }
 
 .edit-profile:hover {
-  transition: all 0.3s ease-out;
   background: #035a4e;
+}
+
+.logout-profile {
+  font-weight: 500;
+  font-size: 15px;
+  color: #ffffff;
+  padding: 8px 0px;
+  width: 100%;
+  max-width: 155px;
+  background: #aa2020;
+  border-radius: 12px;
+  margin: 0 auto;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+}
+
+.logout-profile:hover {
+  background: #8b0101;
 }
 
 @media screen and (max-width: 575px) {
