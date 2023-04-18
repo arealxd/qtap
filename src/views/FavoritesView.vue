@@ -1,19 +1,9 @@
 <script setup lang="ts">
+import HeaderComponent from "../components/HeaderComponent.vue";
+import FooterComponent from "../components/FooterComponent.vue";
 import { ref, watch } from "vue";
 import StarRating from "vue-star-rating";
 import events from "@/db/events.json";
-
-const showAll = ref(true);
-const loopQuantity = ref(4);
-
-const showAllHandler = () => {
-  showAll.value = !showAll.value;
-  if (showAll.value) {
-    loopQuantity.value = 4;
-  } else {
-    loopQuantity.value = data.length;
-  }
-};
 
 const favorites = ref<number[]>([]);
 
@@ -28,20 +18,27 @@ watch(
 );
 
 const data = events;
+
+const onlyFavs = ref(data.filter((item) => favorites.value.includes(item.id)));
+
+const deleteFav = (id: number) => {
+  favorites.value.splice(favorites.value.indexOf(id), 1);
+  for (let i = 0; i < onlyFavs.value.length; i++) {
+    if (onlyFavs.value[i].id === id) {
+      onlyFavs.value.splice(i, 1);
+    }
+  }
+};
 </script>
 
 <template>
+  <HeaderComponent />
   <div class="rec">
     <div class="header">
-      <h1 class="title">Recommended Events</h1>
-      <div class="view_all" @click="showAllHandler">
-        <p class="view_all-text">{{ showAll ? "View all Events" : "Hide" }}</p>
-        <img src="../assets/img/viewAllArrow.png" alt="" />
-      </div>
+      <h1 class="title">Favorites</h1>
     </div>
-
-    <div class="cards" v-auto-animate="{ duration: 500 }">
-      <div class="card_image-block" v-for="i in data.slice(0, loopQuantity)" :key="i.id">
+    <div class="cards" v-auto-animate="{ duration: 500 }" v-if="onlyFavs.length > 0">
+      <div class="card_image-block" v-for="i in onlyFavs" :key="i.id">
         <img class="card_image" :src="i.image" alt="" />
         <img
           v-if="!favorites.includes(i.id)"
@@ -52,7 +49,7 @@ const data = events;
         />
         <img
           v-else
-          @click="favorites.splice(favorites.indexOf(i.id), 1)"
+          @click="deleteFav(i.id)"
           class="nofav_icon"
           src="../assets/img/fav.png"
           alt=""
@@ -67,66 +64,59 @@ const data = events;
         </div>
       </div>
     </div>
+    <div class="null-fav" v-else>
+      <img src="/images/notexistfav.png" alt="" />
+      <h1>No favorites yet</h1>
+    </div>
   </div>
+  <FooterComponent />
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.null-fav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  img {
+    max-width: 200px;
+    border-radius: 30px;
+    margin-bottom: 10px;
+  }
+  h1 {
+    color: #797979;
+  }
+}
 .rec {
-  margin-top: 90px;
+  margin-top: 20px;
   width: 100%;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  margin-bottom: 100px;
 }
 .header {
   display: flex;
   align-items: center;
   width: 100%;
-  max-width: 1150px;
+  max-width: 1260px;
   margin: 0 auto;
-}
-.view_all {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-  cursor: pointer;
-}
-.view_all::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  transform: scaleX(0);
-  height: 2px;
-  bottom: 0;
-  left: 0;
-  background-color: #f75d37;
-  transform-origin: bottom right;
-  transition: transform 0.25s ease-out;
-}
-.view_all:hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
 }
 .title {
   font-weight: 700;
   font-size: 42px;
   color: #000000;
 }
-.view_all-text {
-  font-weight: 700;
-  font-size: 16px;
-  text-align: center;
-  color: #000000;
-}
+
 .cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  /* align-items: center; */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   margin: 0 auto;
-  margin-top: 40px;
+  margin-top: 10px;
   width: 100%;
-  max-width: 1150px;
+  max-width: 1260px;
   gap: 40px;
 }
 .card_image-block {
@@ -134,7 +124,7 @@ const data = events;
 }
 .card_image {
   width: 100%;
-  max-width: 250px;
+  /* max-width: 250px; */
   height: 100vh;
   max-height: 250px;
   border-radius: 20px;

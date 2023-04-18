@@ -1,4 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const goUp = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
+</script>
 
 <template>
   <div class="footer">
@@ -26,17 +33,19 @@
       </div>
       <div class="quick">
         <p class="quick_title">Quick Link</p>
-        <router-link class="router" to="/"><p class="quick_description">Home</p></router-link>
+        <router-link class="router" to="/" @click="goUp"
+          ><p class="quick_description">Home</p></router-link
+        >
         <router-link class="router" to="/about"
           ><p class="quick_description">About Us</p></router-link
         >
         <router-link class="router" to="/blog"><p class="quick_description">Blog</p></router-link>
-        <router-link class="router" to="/category"
+        <!-- <router-link class="router" to="/category"
           ><p class="quick_description">Category</p></router-link
-        >
-        <router-link class="router" to="/contact"
+        > -->
+        <!-- <router-link class="router" to="/contact"
           ><p class="quick_description">Contact Us</p></router-link
-        >
+        > -->
       </div>
       <div class="follow">
         <p class="quick_title">Follow Us</p>

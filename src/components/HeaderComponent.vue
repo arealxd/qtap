@@ -36,6 +36,10 @@ const logout = () => {
   profilePopup.value = false;
   router.push("/auth/login");
 };
+
+const goDown = () => {
+  window.scrollTo(0, document.body.scrollHeight);
+};
 </script>
 
 <template>
@@ -45,8 +49,8 @@ const logout = () => {
         <p class="header__item" @click="router.push('/')">Home</p>
         <p class="header__item">About Us</p>
         <p class="header__item">Blog</p>
-        <p class="header__item">Category</p>
-        <p class="header__item">Contact Us</p>
+        <!-- <p class="header__item">Category</p> -->
+        <p class="header__item" @click="goDown">Contact Us</p>
       </div>
       <img class="header__logo" src="../assets/img/logo.svg" alt="" @click="router.push('/')" />
       <div class="header__right">
@@ -89,11 +93,11 @@ const logout = () => {
           <p class="user-name">{{ userName }}</p>
           <p class="user-email">{{ userEmail }}</p>
           <hr />
-          <div class="notification">
+          <div class="notification" @click="router.push('/notifications')">
             <img src="../assets/img/icon_notification.png" alt="" />
             <p class="notification-text">Notifications</p>
           </div>
-          <div class="notification">
+          <div class="notification" @click="router.push('/favorites')">
             <img src="../assets/img/icon_fav.png" alt="" />
             <p class="notification-text">Favorites</p>
           </div>
@@ -133,8 +137,8 @@ const logout = () => {
               <li class="sidemenu__item"><p>Home</p></li>
               <li class="sidemenu__item"><p>About Us</p></li>
               <li class="sidemenu__item"><p>Blog</p></li>
-              <li class="sidemenu__item"><p>Category</p></li>
-              <li class="sidemenu__item"><p>Contact Us</p></li>
+              <!-- <li class="sidemenu__item"><p>Category</p></li> -->
+              <li class="sidemenu__item" @click="goDown"><p>Contact Us</p></li>
               <li class="sidemenu__item"><p>My profile</p></li>
               <select class="header__city-mobile" name="cities" id="cities">
                 <option hidden>City</option>

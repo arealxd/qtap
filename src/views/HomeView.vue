@@ -7,6 +7,7 @@ import OurPartners from "../components/OurPartners.vue";
 import UnforgettableMoments from "../components/UnforgettableMoments.vue";
 import FooterComponent from "../components/FooterComponent.vue";
 import UserFeedback from "../components/UserFeedback.vue";
+import FilterComponent from "../components/FilterComponent.vue";
 
 const selectCity = ref(true);
 if (localStorage.getItem("city") !== null) {
@@ -28,7 +29,7 @@ const setCity = () => {
   <div class="banner">
     <div v-if="!selectCity">
       <h1>Travel Around<br />the Kazakhstan</h1>
-      <p class="banner__btn">Select your location</p>
+      <p class="banner__btn" @click="selectCity = true">Select your city</p>
     </div>
     <div v-else class="select-city_block">
       <div class="intro_content">
@@ -102,6 +103,7 @@ const setCity = () => {
   <template v-if="!selectCity">
     <CategoriesComponent />
     <RecommendedEvents />
+    <FilterComponent />
     <OurPartners />
     <UnforgettableMoments />
     <UserFeedback />

@@ -84,6 +84,17 @@ const previousFeedback = () => {
     thirdIndex.value--;
   }
 };
+
+const showFeedbackForm = ref(false);
+const feedbackRating = ref(0);
+const feedbackText = ref("");
+
+const postFeedback = () => {
+  console.log("feedback posted: " + feedbackText.value + " " + feedbackRating.value);
+  showFeedbackForm.value = false;
+  feedbackRating.value = 0;
+  feedbackText.value = "";
+};
 </script>
 
 <template>
@@ -95,7 +106,19 @@ const previousFeedback = () => {
         <p class="title_third">A brief overview of our user reviews</p>
       </div>
       <div class="leave_feedback">
-        <p class="btn">leave your feedback</p>
+        <p class="btn" @click="showFeedbackForm = !showFeedbackForm">leave your feedback</p>
+        <form v-if="showFeedbackForm" class="form_feedback" @submit.prevent="postFeedback">
+          <star-rating :star-size="20" :read-only="false" v-model:rating="feedbackRating" />
+          <textarea
+            type="text"
+            required
+            v-model="feedbackText"
+            placeholder="Write a review about the platform"
+            rows="5"
+          >
+          </textarea>
+          <button type="submit">Send</button>
+        </form>
         <div class="arrows">
           <div class="left-arrow" @click="previousFeedback">
             <svg
@@ -178,7 +201,7 @@ const previousFeedback = () => {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .feedback_cards {
   display: flex;
   justify-content: space-between;
@@ -292,5 +315,43 @@ const previousFeedback = () => {
   font-weight: 500;
   font-size: 18px;
   color: #626262;
+}
+.form_feedback {
+  display: flex;
+  flex-direction: column;
+  margin: -30px 0;
+  textarea {
+    border-radius: 15px;
+    padding: 10px;
+    outline: none;
+    font-weight: 600;
+    font-size: 15px;
+    color: black;
+    margin-top: 10px;
+  }
+  textarea::placeholder {
+    font-weight: 600;
+    font-size: 15px;
+    color: #666666;
+  }
+  button {
+    margin-top: 15px;
+    padding: 10px 0;
+    font-weight: 600;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    color: #ffffff;
+    background: #00a0df;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+  }
+  button:hover {
+    background: #0082b6;
+  }
 }
 </style>

@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "text": "You have successfully registered in our platform",
+    "date": "24.04.2023"
+  },
+  {
+    "id": 2,
+    "text": "You have made the first login to your account",
+    "date": "24.04.2023"
+  },
+  {
+    "id": 3,
+    "text": "Big food discounts today",
+    "date": "24.04.2023"
+  },
+  {
+    "id": 4,
+    "text": "Top theatrical events today",
+    "date": "24.04.2023"
+  }
+]
