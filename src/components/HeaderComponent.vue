@@ -101,7 +101,7 @@ const goDown = () => {
             <img src="../assets/img/icon_fav.png" alt="" />
             <p class="notification-text">Favorites</p>
           </div>
-          <p class="edit-profile">Edit profile</p>
+          <p class="edit-profile" @click="router.push('/edit-profile')">Edit profile</p>
           <p class="logout-profile" @click="logout">Logout</p>
         </div>
       </div>

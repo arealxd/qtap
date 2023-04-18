@@ -202,7 +202,7 @@ const activeCategory = ref("Cultural Recreation");
             </div>
             <div class="params">
               <div class="params_one">
-                <p>Presure</p>
+                <p>Pressure</p>
                 <p>{{ weather?.current?.pressure_mb }} mb</p>
               </div>
               <div class="params_one">
