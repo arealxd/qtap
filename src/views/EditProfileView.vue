@@ -2,17 +2,6 @@
 import { ref, watch } from "vue";
 import HeaderComponent from "../components/HeaderComponent.vue";
 import FooterComponent from "../components/FooterComponent.vue";
-import notificationsJson from "@/db/notifications.json";
-
-const notifications = ref(notificationsJson);
-
-const deleteNotification = (id: number) => {
-  for (let i = 0; i < notifications.value.length; i++) {
-    if (notifications.value[i].id === id) {
-      notifications.value.splice(i, 1);
-    }
-  }
-};
 
 const firstName = ref<any>(localStorage.getItem("name"));
 const lastName = ref<any>(localStorage.getItem("surname"));
@@ -59,7 +48,7 @@ watch(confirmPassword, () => {
       <h1 class="title">Edit profile</h1>
     </div>
     <form @submit.prevent="editProfile" class="edit-form">
-      <div class="edit" v-auto-animate="{ duration: 500 }" v-if="notifications.length > 0">
+      <div class="edit" v-auto-animate="{ duration: 500 }">
         <div class="edit-blocks">
           <div class="edit-input">
             <p>First name</p>
