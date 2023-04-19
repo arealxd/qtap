@@ -4,6 +4,9 @@ import axios from "axios";
 import MultiRangeSlider from "multi-range-slider-vue";
 import StarRating from "vue-star-rating";
 import events from "@/db/events.json";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const categories = ref([
   {
@@ -235,7 +238,12 @@ const activeCategory = ref("Cultural Recreation");
               v-for="i in filterEvents.slice(0, loopQuantity)"
               :key="i.id"
             >
-              <img class="card_image" :src="i.image" alt="" />
+              <img
+                class="card_image"
+                :src="i.image"
+                alt=""
+                @click="router.push('/details/' + i.id)"
+              />
               <img
                 v-if="!favorites.includes(i.id)"
                 @click="(e) => favorites.push(i.id)"
@@ -250,7 +258,7 @@ const activeCategory = ref("Cultural Recreation");
                 src="../assets/img/fav.png"
                 alt=""
               />
-              <div class="card_details">
+              <div class="card_details" @click="router.push('/details/' + i.id)">
                 <p class="texts_title">{{ i.address }}</p>
                 <p class="texts_description">
                   {{ i.name }}
@@ -357,6 +365,7 @@ const activeCategory = ref("Cultural Recreation");
 }
 .card_image-block {
   position: relative;
+  cursor: pointer;
 }
 .card_image {
   width: 100%;

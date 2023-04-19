@@ -1,65 +1,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import StarRating from "vue-star-rating";
+import feedbackJson from "@/db/feedback.json";
 
 const firstIndex = ref(0);
 const secondIndex = ref(1);
 const thirdIndex = ref(2);
 
-const feedback = ref([
-  {
-    id: 1,
-    name: "Aya Shalkar",
-    role: "Treveller",
-    rating: 4,
-    description:
-      "Very good platform, I like it, especially the locations 😍 everything is very convenient.",
-    image: "/images/feedback1.jpg",
-  },
-  {
-    id: 2,
-    name: "Azat Zhumadil",
-    role: "Treveller",
-    rating: 5,
-    description:
-      "I like the feature that there is a filter for searching with prices, I can choose locations and establishments based on my budget.",
-    image: "/images/feedback2.jpg",
-  },
-  {
-    id: 3,
-    name: "Assel Sagatova",
-    role: "Treveller",
-    rating: 5,
-    description:
-      "I travel a lot and this platform is a godsend for me, I often use it, I found out places in our country that I didn’t know about before 🥰",
-    image: "/images/feedback3.jpg",
-  },
-  {
-    id: 4,
-    name: "Yerzhan Khassenov",
-    role: "Treveller",
-    rating: 5,
-    description:
-      "I was in Kazakhstan for the first time and a friend recommended this platform, it was very easy to find places to stay 😊",
-    image: "/images/feedback4.jpg",
-  },
-  {
-    id: 5,
-    name: "Nastya Sokolova",
-    role: "Treveller",
-    rating: 3,
-    description: "Thank you for creating this platform, I like it.",
-    image: "/images/feedback5.jpg",
-  },
-  {
-    id: 6,
-    name: "Andrew Garfield",
-    role: "Treveller",
-    rating: 4,
-    description: "I like the idea and the functionality of this QTap platform.",
-    image: "/images/feedback6.jpg",
-  },
-]);
+const feedback = ref(feedbackJson);
 
 const nextFeedback = () => {
   if (thirdIndex.value === feedback.value.length - 1) {

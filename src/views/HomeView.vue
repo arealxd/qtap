@@ -22,6 +22,8 @@ const setCity = () => {
     selectCity.value = false;
   }
 };
+
+window.scrollTo(0, 0);
 </script>
 
 <template>

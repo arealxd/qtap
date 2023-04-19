@@ -39,6 +39,8 @@ watch(confirmPassword, () => {
     activeBtn.value = true;
   }
 });
+
+window.scrollTo(0, 0);
 </script>
 
 <template>

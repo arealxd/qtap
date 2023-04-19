@@ -39,7 +39,7 @@ const goUp = () => {
         <router-link class="router" to="/about"
           ><p class="quick_description">About Us</p></router-link
         >
-        <router-link class="router" to="/blog"><p class="quick_description">Blog</p></router-link>
+        <!-- <router-link class="router" to="/blog"><p class="quick_description">Blog</p></router-link> -->
         <!-- <router-link class="router" to="/category"
           ><p class="quick_description">Category</p></router-link
         > -->

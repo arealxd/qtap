@@ -2,6 +2,9 @@
 import { ref, watch } from "vue";
 import StarRating from "vue-star-rating";
 import events from "@/db/events.json";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const showAll = ref(true);
 const loopQuantity = ref(4);
@@ -42,7 +45,7 @@ const data = events;
 
     <div class="cards" v-auto-animate="{ duration: 500 }">
       <div class="card_image-block" v-for="i in data.slice(0, loopQuantity)" :key="i.id">
-        <img class="card_image" :src="i.image" alt="" />
+        <img class="card_image" :src="i.image" alt="" @click="router.push('/details/' + i.id)" />
         <img
           v-if="!favorites.includes(i.id)"
           @click="favorites.push(i.id)"
@@ -57,7 +60,7 @@ const data = events;
           src="../assets/img/fav.png"
           alt=""
         />
-        <div class="card_details">
+        <div class="card_details" @click="router.push('/details/' + i.id)">
           <p class="texts_title">{{ i.address }}</p>
           <p class="texts_description">
             {{ i.name }}
@@ -124,13 +127,14 @@ const data = events;
   justify-content: space-between;
   /* align-items: center; */
   margin: 0 auto;
-  margin-top: 40px;
+  margin-top: 20px;
   width: 100%;
   max-width: 1150px;
   gap: 40px;
 }
 .card_image-block {
   position: relative;
+  cursor: pointer;
 }
 .card_image {
   width: 100%;

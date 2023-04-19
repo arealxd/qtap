@@ -14,6 +14,8 @@ const login_password = ref("");
 const loginEmailError = ref(false);
 const loginPasswordError = ref(false);
 
+window.scrollTo(0, 0);
+
 const login = () => {
   if (
     username.value === localStorage.getItem("email") &&

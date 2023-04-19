@@ -29,6 +29,8 @@ const deleteFav = (id: number) => {
     }
   }
 };
+
+window.scrollTo(0, 0);
 </script>
 
 <template>

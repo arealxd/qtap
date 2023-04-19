@@ -47,8 +47,8 @@ const goDown = () => {
     <div class="header__container container">
       <div class="header__left">
         <p class="header__item" @click="router.push('/')">Home</p>
-        <p class="header__item">About Us</p>
-        <p class="header__item">Blog</p>
+        <p class="header__item" @click="router.push('/about')">About Us</p>
+        <!-- <p class="header__item">Blog</p> -->
         <!-- <p class="header__item">Category</p> -->
         <p class="header__item" @click="goDown">Contact Us</p>
       </div>
@@ -134,12 +134,14 @@ const goDown = () => {
                 />
                 <input type="submit" hidden />
               </form>
-              <li class="sidemenu__item"><p>Home</p></li>
-              <li class="sidemenu__item"><p>About Us</p></li>
-              <li class="sidemenu__item"><p>Blog</p></li>
+              <li class="sidemenu__item" @click="router.push('/')"><p>Home</p></li>
+              <li class="sidemenu__item" @click="router.push('/about')"><p>About Us</p></li>
+              <!-- <li class="sidemenu__item"><p>Blog</p></li> -->
               <!-- <li class="sidemenu__item"><p>Category</p></li> -->
               <li class="sidemenu__item" @click="goDown"><p>Contact Us</p></li>
-              <li class="sidemenu__item"><p>My profile</p></li>
+              <li class="sidemenu__item" @click="router.push('/edit-profile')">
+                <p>My profile</p>
+              </li>
               <select class="header__city-mobile" name="cities" id="cities">
                 <option hidden>City</option>
                 <option value="Astana">Astana</option>
@@ -174,7 +176,7 @@ const goDown = () => {
 .header__left {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 60px;
 }
 .header__right {
   position: relative;
@@ -186,6 +188,7 @@ const goDown = () => {
   display: flex;
   align-items: center;
   width: 100%;
+  max-width: 180px;
   margin: 0;
   padding: 0;
 }
@@ -245,6 +248,7 @@ const goDown = () => {
 }
 .header__logo {
   cursor: pointer;
+  margin-right: -80px;
 }
 .header__user-icon {
   width: 45px;

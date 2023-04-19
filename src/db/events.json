@@ -5,7 +5,11 @@
     "name": "Exhibition «Van Gogh. Living canvases». Museum Lumiere-Hall",
     "rating": 4,
     "price": "10 000",
-    "image": "/images/event1.jpg"
+    "image": "/images/event1.jpg",
+    "description": "The purpose of the stand-up event is to ensure that everyone is aware of what others are working on and to identify and resolve any issues that may arise. By providing a quick overview of progress, stand-up meetings help to keep the team focused and aligned with the project goals. They also enable team members to identify potential risks early on and take proactive measures to mitigate them. The success of a stand-up event largely depends on the active participation of all team members. It is important that everyone comes prepared and ready to share their progress and challenges. The meeting should be kept short and to the point, and discussions should be limited to the topics raised during the meeting.",
+    "date": "24.04.2023, 17:00",
+    "lat": 43.2449150085,
+    "long": 76.9575195312
   },
   {
     "id": 2,
@@ -13,7 +17,11 @@
     "name": "Stand-up solo performance 'Better than it seems'",
     "rating": 5,
     "price": "5 000",
-    "image": "/images/event2.jpg"
+    "image": "/images/event2.jpg",
+    "description": "The purpose of the stand-up event is to ensure that everyone is aware of what others are working on and to identify and resolve any issues that may arise. By providing a quick overview of progress, stand-up meetings help to keep the team focused and aligned with the project goals. They also enable team members to identify potential risks early on and take proactive measures to mitigate them. The success of a stand-up event largely depends on the active participation of all team members. It is important that everyone comes prepared and ready to share their progress and challenges. The meeting should be kept short and to the point, and discussions should be limited to the topics raised during the meeting.",
+    "date": "24.04.2023, 16:00",
+    "lat": 43.2449150085,
+    "long": 76.9575195312
   },
   {
     "id": 3,
@@ -21,7 +29,11 @@
     "name": "Big Stand Up Concert",
     "rating": 3,
     "price": "4 000",
-    "image": "/images/event3.jpg"
+    "image": "/images/event3.jpg",
+    "description": "The purpose of the stand-up event is to ensure that everyone is aware of what others are working on and to identify and resolve any issues that may arise. By providing a quick overview of progress, stand-up meetings help to keep the team focused and aligned with the project goals. They also enable team members to identify potential risks early on and take proactive measures to mitigate them. The success of a stand-up event largely depends on the active participation of all team members. It is important that everyone comes prepared and ready to share their progress and challenges. The meeting should be kept short and to the point, and discussions should be limited to the topics raised during the meeting.",
+    "date": "24.04.2023, 16:00",
+    "lat": 43.2449150085,
+    "long": 76.9575195312
   },
   {
     "id": 4,
@@ -29,7 +41,11 @@
     "name": "Exhibition «Klimt and Schiele. Modern Gold»",
     "rating": 4,
     "price": "9 000",
-    "image": "/images/event4.jpg"
+    "image": "/images/event4.jpg",
+    "description": "The purpose of the stand-up event is to ensure that everyone is aware of what others are working on and to identify and resolve any issues that may arise. By providing a quick overview of progress, stand-up meetings help to keep the team focused and aligned with the project goals. They also enable team members to identify potential risks early on and take proactive measures to mitigate them. The success of a stand-up event largely depends on the active participation of all team members. It is important that everyone comes prepared and ready to share their progress and challenges. The meeting should be kept short and to the point, and discussions should be limited to the topics raised during the meeting.",
+    "date": "24.04.2023, 16:00",
+    "lat": 43.2449150085,
+    "long": 76.9575195312
   },
   {
     "id": 5,
@@ -37,7 +53,10 @@
     "name": "The Beatles in Jazz - Saule Zharmenova Trio",
     "rating": 3,
     "price": "10 500",
-    "image": "/images/event5.jpg"
+    "image": "/images/event5.jpg",
+    "description": "The purpose of the stand-up event is to ensure that everyone is aware of what others are working on and to identify and resolve any issues that may arise. By providing a quick overview of progress, stand-up meetings help to keep the team focused and aligned with the project goals. They also enable team members to identify potential risks early on and take proactive measures to mitigate them. The success of a stand-up event largely depends on the active participation of all team members. It is important that everyone comes prepared and ready to share their progress and challenges. The meeting should be kept short and to the point, and discussions should be limited to the topics raised during the meeting.",
+    "lat": 43.2449150085,
+    "long": 76.9575195312
   },
   {
     "id": 6,
@@ -45,7 +64,11 @@
     "name": "Open microphone 'Sanych Standup Show'",
     "rating": 4,
     "price": "17 000",
-    "image": "/images/event6.jpg"
+    "image": "/images/event6.jpg",
+    "description": "The purpose of the stand-up event is to ensure that everyone is aware of what others are working on and to identify and resolve any issues that may arise. By providing a quick overview of progress, stand-up meetings help to keep the team focused and aligned with the project goals. They also enable team members to identify potential risks early on and take proactive measures to mitigate them. The success of a stand-up event largely depends on the active participation of all team members. It is important that everyone comes prepared and ready to share their progress and challenges. The meeting should be kept short and to the point, and discussions should be limited to the topics raised during the meeting.",
+    "date": "24.04.2023, 16:00",
+    "lat": 43.2449150085,
+    "long": 76.9575195312
   },
   {
     "id": 7,
@@ -53,7 +76,11 @@
     "name": "All stars jam session - Jazz music and improvisation",
     "rating": 3,
     "price": "4 500",
-    "image": "/images/event7.jpg"
+    "image": "/images/event7.jpg",
+    "description": "The purpose of the stand-up event is to ensure that everyone is aware of what others are working on and to identify and resolve any issues that may arise. By providing a quick overview of progress, stand-up meetings help to keep the team focused and aligned with the project goals. They also enable team members to identify potential risks early on and take proactive measures to mitigate them. The success of a stand-up event largely depends on the active participation of all team members. It is important that everyone comes prepared and ready to share their progress and challenges. The meeting should be kept short and to the point, and discussions should be limited to the topics raised during the meeting.",
+    "date": "24.04.2023, 16:00",
+    "lat": 43.2449150085,
+    "long": 76.9575195312
   },
   {
     "id": 8,
@@ -61,7 +88,11 @@
     "name": "Barber Festival SHARPLINES",
     "rating": 4,
     "price": "4 000",
-    "image": "/images/event8.jpg"
+    "image": "/images/event8.jpg",
+    "description": "The purpose of the stand-up event is to ensure that everyone is aware of what others are working on and to identify and resolve any issues that may arise. By providing a quick overview of progress, stand-up meetings help to keep the team focused and aligned with the project goals. They also enable team members to identify potential risks early on and take proactive measures to mitigate them. The success of a stand-up event largely depends on the active participation of all team members. It is important that everyone comes prepared and ready to share their progress and challenges. The meeting should be kept short and to the point, and discussions should be limited to the topics raised during the meeting.",
+    "date": "24.04.2023, 16:00",
+    "lat": 43.2449150085,
+    "long": 76.9575195312
   },
   {
     "id": 9,
@@ -69,7 +100,11 @@
     "name": "Metal Cover Nights",
     "rating": 2,
     "price": "12 000",
-    "image": "/images/event9.jpg"
+    "image": "/images/event9.jpg",
+    "description": "The purpose of the stand-up event is to ensure that everyone is aware of what others are working on and to identify and resolve any issues that may arise. By providing a quick overview of progress, stand-up meetings help to keep the team focused and aligned with the project goals. They also enable team members to identify potential risks early on and take proactive measures to mitigate them. The success of a stand-up event largely depends on the active participation of all team members. It is important that everyone comes prepared and ready to share their progress and challenges. The meeting should be kept short and to the point, and discussions should be limited to the topics raised during the meeting.",
+    "date": "24.04.2023, 16:00",
+    "lat": 43.2449150085,
+    "long": 76.9575195312
   },
   {
     "id": 10,
@@ -77,7 +112,11 @@
     "name": "Dancing on Stones — R.E.D. Trio",
     "rating": 5,
     "price": "11 000",
-    "image": "/images/event10.jpg"
+    "image": "/images/event10.jpg",
+    "description": "The purpose of the stand-up event is to ensure that everyone is aware of what others are working on and to identify and resolve any issues that may arise. By providing a quick overview of progress, stand-up meetings help to keep the team focused and aligned with the project goals. They also enable team members to identify potential risks early on and take proactive measures to mitigate them. The success of a stand-up event largely depends on the active participation of all team members. It is important that everyone comes prepared and ready to share their progress and challenges. The meeting should be kept short and to the point, and discussions should be limited to the topics raised during the meeting.",
+    "date": "24.04.2023, 16:00",
+    "lat": 43.2449150085,
+    "long": 76.9575195312
   },
   {
     "id": 11,
@@ -85,7 +124,11 @@
     "name": "Festival stories — Irena Aravina and JAZZ HOUSE",
     "rating": 4,
     "price": "17 000",
-    "image": "/images/event11.jpg"
+    "image": "/images/event11.jpg",
+    "description": "The purpose of the stand-up event is to ensure that everyone is aware of what others are working on and to identify and resolve any issues that may arise. By providing a quick overview of progress, stand-up meetings help to keep the team focused and aligned with the project goals. They also enable team members to identify potential risks early on and take proactive measures to mitigate them. The success of a stand-up event largely depends on the active participation of all team members. It is important that everyone comes prepared and ready to share their progress and challenges. The meeting should be kept short and to the point, and discussions should be limited to the topics raised during the meeting.",
+    "date": "24.04.2023, 16:00",
+    "lat": 43.2449150085,
+    "long": 76.9575195312
   },
   {
     "id": 12,
@@ -93,6 +136,10 @@
     "name": "Khomenkov band – Mainstream & Fusion",
     "rating": 3,
     "price": "9 000",
-    "image": "/images/event12.jpg"
+    "image": "/images/event12.jpg",
+    "description": "The purpose of the stand-up event is to ensure that everyone is aware of what others are working on and to identify and resolve any issues that may arise. By providing a quick overview of progress, stand-up meetings help to keep the team focused and aligned with the project goals. They also enable team members to identify potential risks early on and take proactive measures to mitigate them. The success of a stand-up event largely depends on the active participation of all team members. It is important that everyone comes prepared and ready to share their progress and challenges. The meeting should be kept short and to the point, and discussions should be limited to the topics raised during the meeting.",
+    "date": "24.04.2023, 16:00",
+    "lat": 43.2449150085,
+    "long": 76.9575195312
   }
 ]
