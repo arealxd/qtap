@@ -40,7 +40,7 @@ const weather = ref<any>({});
 
 axios
   .get(
-    "http://api.weatherapi.com/v1/current.json?key=aca5a57d9dda4e64a6754358231704&q=" +
+    "https://api.weatherapi.com/v1/current.json?key=aca5a57d9dda4e64a6754358231704&q=" +
       selectedCity.value
   )
   .then((result) => {
