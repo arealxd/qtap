@@ -149,6 +149,9 @@ const categoriesShows = () => {
   max-width: 98px;
 }
 @media screen and (max-width: 575px) {
+  .categories {
+    margin-top: -30px;
+  }
   .categories__list {
     grid-template-columns: repeat(2, 1fr);
   }

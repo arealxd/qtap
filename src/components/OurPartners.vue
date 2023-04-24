@@ -54,4 +54,21 @@
   margin-top: 60px;
   justify-content: center;
 }
+@media screen and (max-width: 575px) {
+  .partners {
+    margin-top: 50px;
+  }
+  .title {
+    font-size: 40px;
+  }
+  .description {
+    font-size: 16px;
+    max-width: 300px;
+  }
+  .partners_logos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+  }
+}
 </style>

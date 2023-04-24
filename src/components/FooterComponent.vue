@@ -155,4 +155,26 @@ const goUp = () => {
 .social img {
   cursor: pointer;
 }
+
+@media screen and (max-width: 575px) {
+  .footer_nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .logo {
+    margin-bottom: 30px;
+  }
+  .contact {
+    margin-bottom: 30px;
+  }
+  .quick {
+    margin-bottom: 30px;
+  }
+  .follow {
+    margin-bottom: 30px;
+  }
+  .gallery_text {
+    font-size: 18px;
+  }
+}
 </style>

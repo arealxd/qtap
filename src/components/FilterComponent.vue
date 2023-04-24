@@ -708,4 +708,40 @@ const activeCategory = ref("Cultural Recreation");
     padding-left: 10px;
   }
 }
+
+@media screen and (max-width: 575px) {
+  .filter__main-header {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    .filter__main-header_selects {
+      width: 100%;
+    }
+    .filter__main-header_price {
+      width: 100%;
+    }
+    .filter__main-header_rating {
+      width: 100%;
+    }
+    .filter__main-header_weather {
+      width: 100%;
+    }
+  }
+  .filter__main-header_weather {
+    align-items: center;
+  }
+  .filter__main-header-cats {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .events {
+    justify-content: center;
+    align-items: flex-start;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 10px;
+  }
+  .card_image {
+    object-fit: cover;
+  }
+}
 </style>

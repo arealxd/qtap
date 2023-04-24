@@ -365,7 +365,7 @@ hr {
     display: flex;
     align-items: center;
     padding: 0px 20px;
-    margin-top: -10px;
+    margin-top: 10px;
     width: 100%;
   }
   .header__active-burger {

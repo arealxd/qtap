@@ -145,4 +145,21 @@ h1 {
   bottom: 25px;
   left: 25px;
 }
+@media screen and (max-width: 575px) {
+  .images {
+    flex-direction: column;
+  }
+  .left {
+    margin-bottom: 20px;
+  }
+  .right {
+    flex-direction: column;
+  }
+  .right_under {
+    flex-direction: column;
+  }
+  .right_under-left {
+    margin-bottom: 20px;
+  }
+}
 </style>

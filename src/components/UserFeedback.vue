@@ -302,4 +302,30 @@ const postFeedback = () => {
     background: #0082b6;
   }
 }
+@media screen and (max-width: 575px) {
+  .feedback_cards {
+    flex-direction: column;
+    gap: 30px;
+  }
+  .card {
+    max-width: 100%;
+  }
+  .arrows {
+    margin-left: 0;
+  }
+  .title_first {
+    font-size: 20px;
+  }
+  .title_second {
+    font-size: 30px;
+    line-height: 1.1;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    max-width: 180px;
+  }
+  .title_third {
+    font-size: 14px;
+    max-width: 180px;
+  }
+}
 </style>

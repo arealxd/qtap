@@ -172,4 +172,27 @@ const data = events;
   font-size: 18px;
   color: #f74e0f;
 }
+
+@media screen and (max-width: 575px) {
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+  }
+  .title {
+    font-weight: 700;
+    font-size: 20px;
+    color: #000000;
+  }
+  .view_all-text {
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    color: #000000;
+  }
+  .cards {
+    align-items: center;
+    justify-content: center;
+  }
+}
 </style>
