@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Aya Shalkar",
     "role": "Treveller",
-    "rating": 4,
+    "rating": "5",
     "description": "Very good platform, I like it, especially the locations 😍 everything is very convenient.",
     "image": "/images/feedback1.jpg"
   },
@@ -11,7 +11,7 @@
     "id": 2,
     "name": "Azat Zhumadil",
     "role": "Treveller",
-    "rating": 5,
+    "rating": 4,
     "description": "I like the feature that there is a filter for searching with prices, I can choose locations and establishments based on my budget.",
     "image": "/images/feedback2.jpg"
   },

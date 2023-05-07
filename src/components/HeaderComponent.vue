@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import axios from "axios";
 
 const router = useRouter();
 const searchValue = ref("");
@@ -22,8 +23,8 @@ const profileClick = () => {
   }
 };
 
-const userName = localStorage.getItem("name") + " " + localStorage.getItem("surname");
-const userEmail = localStorage.getItem("email");
+// const userName = localStorage.getItem("name") + " " + localStorage.getItem("surname");
+// const userEmail = localStorage.getItem("email");
 
 const city = ref(localStorage.getItem("city"));
 
@@ -40,6 +41,20 @@ const logout = () => {
 const goDown = () => {
   window.scrollTo(0, document.body.scrollHeight);
 };
+
+const token = localStorage.getItem("token");
+const myProfile = ref();
+
+axios
+  .get("https://almatap-backend.onrender.com/users", {
+    headers: { Authorization: `Bearer ${token}` },
+  })
+  .then((res) => {
+    myProfile.value = res.data;
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 </script>
 
 <template>
@@ -90,8 +105,8 @@ const goDown = () => {
 
         <div class="profile-popup" v-if="profilePopup">
           <img src="../assets/img/userAva.png" alt="" />
-          <p class="user-name">{{ userName }}</p>
-          <p class="user-email">{{ userEmail }}</p>
+          <p class="user-name">{{ myProfile?.name }} {{ myProfile?.surname }}</p>
+          <p class="user-email">{{ myProfile?.email }}</p>
           <hr />
           <div class="notification" @click="router.push('/notifications')">
             <img src="../assets/img/icon_notification.png" alt="" />

@@ -44,7 +44,6 @@ axios
       selectedCity.value
   )
   .then((result) => {
-    console.log(result.data);
     weather.value = result.data;
   })
   .catch((error) => {

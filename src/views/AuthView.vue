@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import HeaderComponent from "../components/HeaderComponent.vue";
-// import axios from "axios";
+import axios from "axios";
 import { useRouter } from "vue-router";
 import { watch } from "vue";
 
 const router = useRouter();
 
-// let formData = new FormData();
+let formData = new FormData();
 
 const username = ref("");
 const login_password = ref("");
@@ -17,44 +17,53 @@ const loginPasswordError = ref(false);
 window.scrollTo(0, 0);
 
 const login = () => {
-  if (
-    username.value === localStorage.getItem("email") &&
-    login_password.value === localStorage.getItem("password")
-  ) {
-    localStorage.setItem("userState", "authorized");
-    username.value = "";
-    login_password.value = "";
-    router.push("/");
-  } else {
-    if (username.value !== localStorage.getItem("email")) {
-      loginEmailError.value = true;
-    } else {
-      loginEmailError.value = false;
-      if (login_password.value !== localStorage.getItem("password")) {
-        loginPasswordError.value = true;
-      } else {
-        loginPasswordError.value = false;
-      }
-    }
-  }
+  // if (
+  //   username.value === localStorage.getItem("email") &&
+  //   login_password.value === localStorage.getItem("password")
+  // ) {
+  //   localStorage.setItem("userState", "authorized");
+  //   username.value = "";
+  //   login_password.value = "";
+  //   router.push("/");
+  // } else {
+  //   if (username.value !== localStorage.getItem("email")) {
+  //     loginEmailError.value = true;
+  //   } else {
+  //     loginEmailError.value = false;
+  //     if (login_password.value !== localStorage.getItem("password")) {
+  //       loginPasswordError.value = true;
+  //     } else {
+  //       loginPasswordError.value = false;
+  //     }
+  //   }
+  // }
+
   // formData = new FormData();
   // formData.append("username", username.value);
   // formData.append("password", login_password.value);
-  // axios
-  //   .post("https://almatap-backend.onrender.com/process_login", formData)
-  //   .then((result) => {
-  //     console.log(result);
-  //     console.log(result.status);
-  //     if (result.status === 200) {
-  //       localStorage.setItem("userState", "authorized");
-  //       username.value = "";
-  //       login_password.value = "";
-  //       router.push("/");
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
+  axios
+    .post("https://almatap-backend.onrender.com/auth/login", {
+      username: username.value,
+      password: login_password.value,
+    })
+    .then((result) => {
+      console.log(result);
+      console.log(result.status);
+      if (result.status === 200) {
+        if (result.data.token === undefined) {
+          loginEmailError.value = true;
+        } else {
+          localStorage.setItem("userState", "authorized");
+          localStorage.setItem("token", result.data.token);
+          username.value = "";
+          login_password.value = "";
+          router.push("/");
+        }
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 const firstName = ref("");
@@ -65,43 +74,62 @@ const password = ref("");
 const successRegister = ref(false);
 
 const register = () => {
-  localStorage.setItem("name", firstName.value);
-  localStorage.setItem("surname", lastName.value);
-  localStorage.setItem("yearOfBirth", yearOfBirth.value);
-  localStorage.setItem("email", email.value);
-  localStorage.setItem("password", password.value);
-  localStorage.setItem("userState", "registered");
-  successRegister.value = true;
+  // localStorage.setItem("name", firstName.value);
+  // localStorage.setItem("surname", lastName.value);
+  // localStorage.setItem("yearOfBirth", yearOfBirth.value);
+  // localStorage.setItem("email", email.value);
+  // localStorage.setItem("password", password.value);
+  // localStorage.setItem("userState", "registered");
+  // successRegister.value = true;
 
-  // formData = new FormData();
-  // formData.append("name", firstName.value);
-  // formData.append("surname", lastName.value);
-  // formData.append("yearOfBirth", yearOfBirth.value);
-  // formData.append("email", email.value);
-  // formData.append("password", password.value);
-  // axios
-  //   .post("https://almatap-backend.onrender.com/auth/registration", formData)
-  //   .then((result) => {
-  //     console.log(result);
-  //     console.log(result.status);
-  //     if (result.status === 200) {
-  //       authLevel.value = "login";
-  //       localStorage.setItem("userState", "registered");
-  //       firstName.value = "";
-  //       lastName.value = "";
-  //       yearOfBirth.value = "";
-  //       email.value = "";
-  //       password.value = "";
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //   });
+  formData = new FormData();
+  formData.append("name", firstName.value);
+  formData.append("surname", lastName.value);
+  formData.append("yearOfBirth", yearOfBirth.value);
+  formData.append("email", email.value);
+  formData.append("password", password.value);
+  axios
+    .post("https://almatap-backend.onrender.com/auth/registration", formData)
+    .then((result) => {
+      console.log(result);
+      console.log(result.status);
+      if (result.status === 200) {
+        successRegister.value = true;
+        localStorage.setItem("userState", "registered");
+        firstName.value = "";
+        lastName.value = "";
+        yearOfBirth.value = "";
+        email.value = "";
+        password.value = "";
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
+const forgotEmail = ref("");
+const checkEmailForgot = ref(false);
+
 const forgot = () => {
-  console.log("forgot");
-  authLevel.value = "createNewPassword";
+  formData = new FormData();
+  formData.append("email", forgotEmail.value);
+
+  axios
+    .post("https://almatap-backend.onrender.com/auth/lost-password", formData)
+    .then((result) => {
+      console.log(result);
+      if (result.status === 200) {
+        checkEmailForgot.value = true;
+        setTimeout(() => {
+          checkEmailForgot.value = false;
+          authLevel.value = "login";
+        }, 2000);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 const passwordMismatch = ref(false);
@@ -126,7 +154,7 @@ watch(successRegister, () => {
     setTimeout(() => {
       successRegister.value = false;
       authLevel.value = "login";
-    }, 2000);
+    }, 3000);
   }
 });
 
@@ -221,7 +249,7 @@ const authLevel = ref("login");
         placeholder="Password"
         v-model:value="password"
       />
-      <p v-if="successRegister" class="successRegister">Successfully registered</p>
+      <p v-if="successRegister" class="successRegister">Check your email and confirm</p>
       <div class="btn_offer">
         <button type="submit" class="sign_up">Sign Up</button>
       </div>
@@ -233,8 +261,14 @@ const authLevel = ref("login");
           No worriest! Just enter your email and we’ll send you a reset password link.
         </p>
       </div>
-      <input required class="input_email" type="email" placeholder="Email address" />
-
+      <input
+        required
+        class="input_email"
+        type="email"
+        v-model="forgotEmail"
+        placeholder="Email address"
+      />
+      <p class="successRegister" v-if="checkEmailForgot">Check your email</p>
       <div class="btn_offer">
         <button type="submit" class="sign_up">Send Recovery Email</button>
       </div>
@@ -418,7 +452,7 @@ h2 {
 
 .successRegister {
   font-weight: 600;
-  font-size: 14px;
+  font-size: 16px;
   color: #00b60f;
   text-align: center;
   margin-top: -15px;
