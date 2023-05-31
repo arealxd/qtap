@@ -30,7 +30,7 @@ window.scrollTo(0, 0);
   <HeaderComponent v-if="!selectCity" />
   <div class="banner">
     <div v-if="!selectCity">
-      <h1>Travel Around<br />the Kazakhstan</h1>
+      <h1>Travel Around<br />the Kazakhstan.</h1>
       <p class="banner__btn" @click="selectCity = true">Select your city</p>
     </div>
     <div v-else class="select-city_block">
