@@ -8,7 +8,9 @@ import UnforgettableMoments from "../components/UnforgettableMoments.vue";
 import FooterComponent from "../components/FooterComponent.vue";
 import UserFeedback from "../components/UserFeedback.vue";
 import FilterComponent from "../components/FilterComponent.vue";
+import { useI18n } from "vue-i18n";
 
+const { t, locale } = useI18n({ useScope: "global" });
 const selectCity = ref(true);
 if (localStorage.getItem("city") !== null) {
   selectCity.value = false;
@@ -30,75 +32,75 @@ window.scrollTo(0, 0);
   <HeaderComponent v-if="!selectCity" />
   <div class="banner">
     <div v-if="!selectCity">
-      <h1>Travel Around<br />the Kazakhstan.</h1>
-      <p class="banner__btn" @click="selectCity = true">Select your city</p>
+      <h1>{{ $t("TRAVEL") }}</h1>
+      <p class="banner__btn" @click="selectCity = true">{{ $t("SELECTCITY") }}</p>
     </div>
     <div v-else class="select-city_block">
       <div class="intro_content">
         <img src="../assets/img/logo.svg" alt="" />
-        <p class="intro_content-text">Service for searching impressions in Kazakhstan</p>
+        <p class="intro_content-text">{{ $t("SERVICESEARCH") }}</p>
       </div>
       <div class="select-city">
-        <p class="select-city_title">Select your city</p>
+        <p class="select-city_title">{{ $t("SELECTCITY") }}</p>
         <div class="city_list">
           <p
             @click="city = 'Astana'"
             class="select-city_name"
             :class="{ 'active-city': city === 'Astana' }"
           >
-            Astana
+            {{ $t("ASTANA") }}
           </p>
           <p
             @click="city = 'Almaty'"
             class="select-city_name"
             :class="{ 'active-city': city === 'Almaty' }"
           >
-            Almaty
+            {{ $t("ALMATY") }}
           </p>
           <p
             @click="city = 'Shymkent'"
             class="select-city_name"
             :class="{ 'active-city': city === 'Shymkent' }"
           >
-            Shymkent
+            {{ $t("SHYMKENT") }}
           </p>
           <p
             @click="city = 'Kyzylorda'"
             class="select-city_name"
             :class="{ 'active-city': city === 'Kyzylorda' }"
           >
-            Kyzylorda
+            {{ $t("KYZYLORDA") }}
           </p>
           <p
             @click="city = 'Atyrau'"
             class="select-city_name"
             :class="{ 'active-city': city === 'Atyrau' }"
           >
-            Atyrau
+            {{ $t("ATYRAU") }}
           </p>
           <p
             @click="city = 'Karagandy'"
             class="select-city_name"
             :class="{ 'active-city': city === 'Karagandy' }"
           >
-            Karagandy
+            {{ $t("KARAGANDY") }}
           </p>
           <p
             @click="city = 'Pavlodar'"
             class="select-city_name"
             :class="{ 'active-city': city === 'Pavlodar' }"
           >
-            Pavlodar
+            {{ $t("PAVLODAR") }}
           </p>
           <p
             @click="city = 'Kokshetau'"
             class="select-city_name"
             :class="{ 'active-city': city === 'Kokshetau' }"
           >
-            Kokshetau
+            {{ $t("KOKSHETAU") }}
           </p>
         </div>
-        <p class="select-btn" @click="setCity">Select</p>
+        <p class="select-btn" @click="setCity">{{ $t("SELECTBTN") }}</p>
       </div>
     </div>
   </div>
@@ -129,6 +131,8 @@ h1 {
   color: #2a2a2a;
   text-shadow: 10px 7px 16px rgba(127, 127, 127, 0.299661);
   line-height: 1;
+  max-width: 650px;
+  margin: 0 auto;
 }
 .banner__btn {
   display: flex;
@@ -256,6 +260,7 @@ h1 {
   }
   h1 {
     font-size: 45px;
+    max-width: 350px;
   }
   .banner__btn {
     font-size: 16px;

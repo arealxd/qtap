@@ -1,12 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useI18n } from "vue-i18n";
+
+const { t, locale } = useI18n({ useScope: "global" });
+</script>
 
 <template>
   <div class="partners">
     <div class="partners_texts">
-      <p class="title">Our partners</p>
+      <p class="title">{{ $t("OURPARTNERS") }}</p>
       <p class="description">
-        There are many variation of passage of lorem ipsum available but the majority have suffered
-        alteration
+        {{ $t("PARTNERLIST") }}
       </p>
     </div>
     <div class="partners_logos">

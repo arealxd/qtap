@@ -3,6 +3,9 @@ import { ref, watch } from "vue";
 import StarRating from "vue-star-rating";
 import events from "@/db/events.json";
 import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
+
+const { t, locale } = useI18n({ useScope: "global" });
 
 const router = useRouter();
 
@@ -36,9 +39,9 @@ const data = events;
 <template>
   <div class="rec">
     <div class="header">
-      <h1 class="title">Recommended Events</h1>
+      <h1 class="title">{{ $t("RECOMMENDED") }}</h1>
       <div class="view_all" @click="showAllHandler">
-        <p class="view_all-text">{{ showAll ? "View all Events" : "Hide" }}</p>
+        <p class="view_all-text">{{ showAll ? $t("VIEWALL") : $t("HIDE") }}</p>
         <img src="../assets/img/viewAllArrow.png" alt="" />
       </div>
     </div>

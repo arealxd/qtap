@@ -2,6 +2,9 @@
 import { ref } from "vue";
 import HeaderComponent from "../components/HeaderComponent.vue";
 import FooterComponent from "../components/FooterComponent.vue";
+import { useI18n } from "vue-i18n";
+
+const { t, locale } = useI18n({ useScope: "global" });
 
 const googleMapsUrl = ref(
   "https://www.google.com/maps/d/embed?mid=10A9IFKcW8EJap5qEmTKFY9PDHx0u-wI&ehbc=2E312F"
@@ -12,7 +15,7 @@ const googleMapsUrl = ref(
   <HeaderComponent />
   <div class="rec">
     <div class="header">
-      <h1 class="title">Map of locations and events</h1>
+      <h1 class="title">{{ $t("MAPOF") }}</h1>
     </div>
     <div class="map" v-auto-animate="{ duration: 500 }">
       <iframe :src="googleMapsUrl" width="100%" height="600"></iframe>

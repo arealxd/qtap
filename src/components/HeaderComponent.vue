@@ -2,7 +2,9 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
+import { useI18n } from "vue-i18n";
 
+const { t, locale } = useI18n({ useScope: "global" });
 const router = useRouter();
 const searchValue = ref("");
 
@@ -59,18 +61,25 @@ axios
   .catch((err) => {
     console.log(err);
   });
+
+const lang = ref(localStorage.getItem("lang") ?? "en");
+
+const setLang = (newLang: string | null) => {
+  localStorage.setItem("lang", newLang?.toString() ?? "");
+  locale.value = newLang?.toString() ?? "";
+};
 </script>
 
 <template>
   <div class="header">
     <div class="header__container container">
       <div class="header__left">
-        <p class="header__item" @click="router.push('/')">Home</p>
-        <p class="header__item" @click="router.push('/about')">About Us</p>
+        <p class="header__item" @click="router.push('/')">{{ $t("HOME") }}</p>
+        <p class="header__item" @click="router.push('/about')">{{ $t("ABOUTUS") }}</p>
         <!-- <p class="header__item">Blog</p> -->
         <!-- <p class="header__item">Category</p> -->
-        <p class="header__item" @click="goDown">Contact Us</p>
-        <p class="header__item" @click="router.push('/map')">Map</p>
+        <p class="header__item" @click="goDown">{{ $t("CONTACTUS") }}</p>
+        <p class="header__item" @click="router.push('/map')">{{ $t("MAP") }}</p>
       </div>
       <img class="header__logo" src="../assets/img/logo.svg" alt="" @click="router.push('/')" />
       <div class="header__right">
@@ -79,7 +88,7 @@ axios
             v-model="searchValue"
             class="header__search"
             type="text"
-            placeholder="&#xF002;  Search..."
+            :placeholder="'&#xF002;  ' + $t('SEARCH') + '...'"
             style="font-family: Arial, FontAwesome"
           />
           <input type="submit" hidden />
@@ -92,14 +101,26 @@ axios
           id="cities"
         >
           <option hidden>City</option>
-          <option value="Astana">Astana</option>
-          <option value="Almaty">Almaty</option>
-          <option value="Shymkent">Shymkent</option>
-          <option value="Kyzylorda">Kyzylorda</option>
-          <option value="Atyrau">Atyrau</option>
-          <option value="Karagandy">Karagandy</option>
-          <option value="Pavlodar">Pavlodar</option>
-          <option value="Kokshetau">Kokshetau</option>
+          <option value="Astana">{{ $t("ASTANA") }}</option>
+          <option value="Almaty">{{ $t("ALMATY") }}</option>
+          <option value="Shymkent">{{ $t("SHYMKENT") }}</option>
+          <option value="Kyzylorda">{{ $t("KYZYLORDA") }}</option>
+          <option value="Atyrau">{{ $t("ATYRAU") }}</option>
+          <option value="Karagandy">{{ $t("KARAGANDY") }}</option>
+          <option value="Pavlodar">{{ $t("PAVLODAR") }}</option>
+          <option value="Kokshetau">{{ $t("KOKSHETAU") }}</option>
+        </select>
+        <select
+          @change="setLang(lang)"
+          v-model="lang"
+          class="header__city"
+          name="cities"
+          id="cities"
+        >
+          <option hidden>Language</option>
+          <option value="en">English</option>
+          <option value="ru">Русский</option>
+          <option value="kz">Қазақша</option>
         </select>
         <img
           @click="profileClick"
@@ -115,14 +136,14 @@ axios
           <hr />
           <div class="notification" @click="router.push('/notifications')">
             <img src="../assets/img/icon_notification.png" alt="" />
-            <p class="notification-text">Notifications</p>
+            <p class="notification-text">{{ $t("NOTIFICATIONS") }}</p>
           </div>
           <div class="notification" @click="router.push('/favorites')">
             <img src="../assets/img/icon_fav.png" alt="" />
-            <p class="notification-text">Favorites</p>
+            <p class="notification-text">{{ $t("FAVORITES") }}</p>
           </div>
-          <p class="edit-profile" @click="router.push('/edit-profile')">Edit profile</p>
-          <p class="logout-profile" @click="logout">Logout</p>
+          <p class="edit-profile" @click="router.push('/edit-profile')">{{ $t("EDITPROFILE") }}</p>
+          <p class="logout-profile" @click="logout">{{ $t("LOGOUT") }}</p>
         </div>
       </div>
     </div>
@@ -149,29 +170,39 @@ axios
                   v-model="searchValue"
                   class="header__search"
                   type="text"
-                  placeholder="&#xF002;  Search..."
+                  :placeholder="'&#xF002;  ' + $t('SEARCH') + '...'"
                   style="font-family: Arial, FontAwesome"
                 />
                 <input type="submit" hidden />
               </form>
-              <li class="sidemenu__item" @click="router.push('/')"><p>Home</p></li>
-              <li class="sidemenu__item" @click="router.push('/about')"><p>About Us</p></li>
+              <li class="sidemenu__item" @click="router.push('/')">
+                <p>{{ $t("HOME") }}</p>
+              </li>
+              <li class="sidemenu__item" @click="router.push('/about')">
+                <p>{{ $t("ABOUTUS") }}</p>
+              </li>
               <!-- <li class="sidemenu__item"><p>Blog</p></li> -->
               <!-- <li class="sidemenu__item"><p>Category</p></li> -->
-              <li class="sidemenu__item" @click="goDown"><p>Contact Us</p></li>
-              <li class="sidemenu__item" @click="router.push('/map')"><p>Map</p></li>
+              <li class="sidemenu__item" @click="goDown">
+                <p>{{ $t("CONTACTUS") }}</p>
+              </li>
+              <li class="sidemenu__item" @click="router.push('/map')">
+                <p>{{ $t("MAP") }}</p>
+              </li>
               <li class="sidemenu__item" @click="router.push('/notifications')" v-if="authorized">
-                <p>Notifications</p>
+                <p>{{ $t("NOTIFICATIONS") }}</p>
               </li>
               <li class="sidemenu__item" @click="router.push('/favorites')" v-if="authorized">
-                <p>Favorites</p>
+                <p>{{ $t("FAVORITES") }}</p>
               </li>
               <li class="sidemenu__item" @click="router.push('/edit-profile')" v-if="authorized">
-                <p>Edit profile</p>
+                <p>{{ $t("EDITPROFILE") }}</p>
               </li>
-              <li class="sidemenu__item" @click="logout" v-if="authorized"><p>Logout</p></li>
+              <li class="sidemenu__item" @click="logout" v-if="authorized">
+                <p>{{ $t("LOGOUT") }}</p>
+              </li>
               <li class="sidemenu__item" @click="router.push('/auth/login')" v-if="!authorized">
-                <p>Login</p>
+                <p>{{ $t("LOGIN") }}</p>
               </li>
               <select
                 @change="setNewCity(city)"
@@ -181,16 +212,22 @@ axios
                 id="cities"
               >
                 <option hidden>City</option>
-                <option value="Astana">Astana</option>
-                <option value="Almaty">Almaty</option>
-                <option value="Shymkent">Shymkent</option>
-                <option value="Kyzylorda">Kyzylorda</option>
-                <option value="Atyrau">Atyrau</option>
-                <option value="Karagandy">Karagandy</option>
-                <option value="Pavlodar">Pavlodar</option>
-                <option value="Kokshetau">Kokshetau</option>
+                <option value="Astana">{{ $t("ASTANA") }}</option>
+                <option value="Almaty">{{ $t("ALMATY") }}</option>
+                <option value="Shymkent">{{ $t("SHYMKENT") }}</option>
+                <option value="Kyzylorda">{{ $t("KYZYLORDA") }}</option>
+                <option value="Atyrau">{{ $t("ATYRAU") }}</option>
+                <option value="Karagandy">{{ $t("KARAGANDY") }}</option>
+                <option value="Pavlodar">{{ $t("PAVLODAR") }}</option>
+                <option value="Kokshetau">{{ $t("KOKSHETAU") }}</option>
               </select>
-              <select class="header__city-mobile" name="cities" id="cities">
+              <select
+                class="header__city-mobile"
+                @change="setLang(lang)"
+                v-model="lang"
+                name="cities"
+                id="cities"
+              >
                 <option hidden>Language</option>
                 <option value="en">English</option>
                 <option value="ru">Русский</option>
@@ -371,7 +408,6 @@ hr {
   color: #ffffff;
   padding: 8px 0px;
   width: 100%;
-  max-width: 155px;
   background: #009580;
   border-radius: 12px;
   margin: 0 auto;
@@ -390,7 +426,6 @@ hr {
   color: #ffffff;
   padding: 8px 0px;
   width: 100%;
-  max-width: 155px;
   background: #aa2020;
   border-radius: 12px;
   margin: 0 auto;

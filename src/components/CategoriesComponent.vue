@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useI18n } from "vue-i18n";
+
+const { t, locale } = useI18n({ useScope: "global" });
 
 const showAll = ref(true);
 const catNumber = ref(0);
@@ -18,9 +21,9 @@ const categoriesShows = () => {
 <template>
   <div class="categories">
     <div class="categories__header">
-      <div class="categories__title">Select Your Travel Mood</div>
+      <div class="categories__title">{{ $t("SELECTMOOD") }}</div>
       <div class="categories__view-all" @click="categoriesShows">
-        {{ showAll ? "View All" : "Hide" }}
+        {{ showAll ? $t("VIEWALL") : $t("HIDE") }}
       </div>
     </div>
     <div class="categories__list" v-auto-animate="{ duration: 500 }">

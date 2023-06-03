@@ -3,6 +3,9 @@ import { ref } from "vue";
 import HeaderComponent from "../components/HeaderComponent.vue";
 import FooterComponent from "../components/FooterComponent.vue";
 import notificationsJson from "@/db/notifications.json";
+import { useI18n } from "vue-i18n";
+
+const { t, locale } = useI18n({ useScope: "global" });
 
 const notifications = ref(notificationsJson);
 
@@ -21,7 +24,7 @@ window.scrollTo(0, 0);
   <HeaderComponent />
   <div class="rec">
     <div class="header">
-      <h1 class="title">Notifications</h1>
+      <h1 class="title">{{ $t("NOTIFICATIONS") }}</h1>
     </div>
     <div class="notifications" v-auto-animate="{ duration: 500 }" v-if="notifications.length > 0">
       <div class="notifications-one" v-for="i in notifications" :key="i.id">
@@ -58,7 +61,7 @@ window.scrollTo(0, 0);
     </div>
     <div class="null-fav" v-else>
       <img src="/images/nonotifications.png" alt="" />
-      <h1>No notifications yet</h1>
+      <h1>{{ $t("NONOTIFICATIONS") }}</h1>
     </div>
   </div>
   <FooterComponent />

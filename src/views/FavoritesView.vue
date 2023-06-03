@@ -4,6 +4,9 @@ import FooterComponent from "../components/FooterComponent.vue";
 import { ref, watch } from "vue";
 import StarRating from "vue-star-rating";
 import events from "@/db/events.json";
+import { useI18n } from "vue-i18n";
+
+const { t, locale } = useI18n({ useScope: "global" });
 
 const favorites = ref<number[]>([]);
 
@@ -37,7 +40,7 @@ window.scrollTo(0, 0);
   <HeaderComponent />
   <div class="rec">
     <div class="header">
-      <h1 class="title">Favorites</h1>
+      <h1 class="title">{{ $t("FAVORITES") }}</h1>
     </div>
     <div class="cards" v-auto-animate="{ duration: 500 }" v-if="onlyFavs.length > 0">
       <div class="card_image-block" v-for="i in onlyFavs" :key="i.id">
@@ -68,7 +71,7 @@ window.scrollTo(0, 0);
     </div>
     <div class="null-fav" v-else>
       <img src="/images/notexistfav.png" alt="" />
-      <h1>No favorites yet</h1>
+      <h1>{{ $t("NOFAVORITES") }}</h1>
     </div>
   </div>
   <FooterComponent />

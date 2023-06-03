@@ -2,6 +2,9 @@
 import { ref } from "vue";
 import HeaderComponent from "../components/HeaderComponent.vue";
 import FooterComponent from "../components/FooterComponent.vue";
+import { useI18n } from "vue-i18n";
+
+const { t, locale } = useI18n({ useScope: "global" });
 
 const successSubscribe = ref(false);
 const email = ref("");
@@ -21,52 +24,43 @@ window.scrollTo(0, 0);
   <HeaderComponent />
   <div class="rec">
     <div class="header">
-      <h1 class="title">About us</h1>
+      <h1 class="title">{{ $t("ABOUTUS") }}</h1>
     </div>
     <div class="about" v-auto-animate="{ duration: 500 }">
       <div class="about__facts">
         <div class="about__facts-fact">
           <img src="/images/about1.png" alt="" />
-          <h2 class="about__facts-title">Our goal</h2>
+          <h2 class="about__facts-title">{{ $t("OURGOAL") }}</h2>
           <p class="about__facts-description">
-            Our project was created to make life easier for both tourists and residents of our
-            country, helping them quickly and easily choose places for recreation and entertainment,
-            depending on their preferences and budget. We aim to become a leader in the travel
-            industry by offering new and innovative opportunities to our clients.
+            {{ $t("OURGOALTEXT") }}
           </p>
         </div>
         <div class="about__facts-fact">
           <img src="/images/about2.png" alt="" />
-          <h2 class="about__facts-title">Our team</h2>
+          <h2 class="about__facts-title">{{ $t("OURTEAM") }}</h2>
           <p class="about__facts-description">
-            Our team consists of experienced developers, testers, designers and marketers who work
-            together to create the best possible user experience. We are constantly improving our
-            product to ensure that our service is easy to use, informative and useful for all our
-            users.
+            {{ $t("OURTEAMTEXT") }}
           </p>
         </div>
         <div class="about__facts-fact">
           <img src="/images/about3.png" alt="" />
-          <h2 class="about__facts-title">Our mission</h2>
+          <h2 class="about__facts-title">{{ $t("OURMISSION") }}</h2>
           <p class="about__facts-description">
-            We strive for complete transparency and openness in our work, and we are always ready to
-            listen to the feedback and suggestions of our users. If you have any questions or
-            suggestions, please contact us through our contact page.
+            {{ $t("OURMISSIONTEXT") }}
           </p>
         </div>
       </div>
     </div>
     <div class="subscribe">
-      <p class="subscribe__title">Subcribe to get new info</p>
+      <p class="subscribe__title">{{ $t("TOGET") }}</p>
       <p class="subscribe__description">
-        Don't want to miss something? Subscribe now and get the latest news about tourist places and
-        locations
+        {{ $t("NEWS") }}
       </p>
       <form @submit.prevent="subscribe" class="subscribe__form">
-        <input v-model="email" type="email" required placeholder="Type your  email here" />
-        <button>Subscribe</button>
+        <input v-model="email" type="email" required :placeholder="$t('TYPEEMAIL')" />
+        <button>{{ $t("SUBSCRIBE") }}</button>
         <p class="subscribe__form-success" v-if="successSubscribe">
-          You have successfully subscribed
+          {{ $t("SUBSCRIBED") }}
         </p>
       </form>
     </div>
@@ -128,6 +122,7 @@ window.scrollTo(0, 0);
     color: #000000;
     margin-top: 25px;
     margin-bottom: 13px;
+    white-space: nowrap;
   }
   .about__facts-description {
     font-weight: 500;

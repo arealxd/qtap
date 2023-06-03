@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
+
+const { t, locale } = useI18n({ useScope: "global" });
+
 const goUp = () => {
   window.scrollTo({
     top: 0,
@@ -10,18 +14,18 @@ const goUp = () => {
 <template>
   <div class="footer">
     <div class="gallery_block">
-      <p class="gallery_text">WE ARE ALWAYS HAPPY TO HELP YOU FIND SUITABLE PLACES.</p>
+      <p class="gallery_text">{{ $t("ALWAYS") }}</p>
     </div>
     <div class="footer_nav container">
       <div class="logo">
         <router-link class="router" to="/">
           <img src="../assets/img/logo.svg" alt="" />
         </router-link>
-        <p class="logo_text">Travel around the Kazakhstan.</p>
-        <p class="copyright">© 2023 QTAP All rights reserved.</p>
+        <p class="logo_text">{{ $t("TRAVEL") }}.</p>
+        <p class="copyright">© 2023 QTAP {{ $t("RESERVED") }}.</p>
       </div>
       <div class="contact">
-        <p class="contact_text">Contact Information</p>
+        <p class="contact_text">{{ $t("CONTACT") }}</p>
         <div class="phone">
           <img src="../assets/img/phone.png" alt="" />
           <a class="contact_data" href="tel:+77055254909">+7 705 525 49 09</a>
@@ -32,14 +36,16 @@ const goUp = () => {
         </div>
       </div>
       <div class="quick">
-        <p class="quick_title">Quick Link</p>
+        <p class="quick_title">{{ $t("QUICKLINK") }}</p>
         <router-link class="router" to="/" @click="goUp"
-          ><p class="quick_description">Home</p></router-link
+          ><p class="quick_description">{{ $t("HOME") }}</p></router-link
         >
         <router-link class="router" to="/about"
-          ><p class="quick_description">About Us</p></router-link
+          ><p class="quick_description">{{ $t("ABOUTUS") }}</p></router-link
         >
-        <router-link class="router" to="/map"><p class="quick_description">Map</p></router-link>
+        <router-link class="router" to="/map"
+          ><p class="quick_description">{{ $t("MAP") }}</p></router-link
+        >
         <!-- <router-link class="router" to="/blog"><p class="quick_description">Blog</p></router-link> -->
         <!-- <router-link class="router" to="/category"
           ><p class="quick_description">Category</p></router-link
@@ -49,7 +55,7 @@ const goUp = () => {
         > -->
       </div>
       <div class="follow">
-        <p class="quick_title">Follow Us</p>
+        <p class="quick_title">{{ $t("FOLLOWUS") }}</p>
         <div class="social">
           <a href="https://ru-ru.facebook.com/" target="_blank"
             ><img src="../assets/img/facebook.png" alt=""
@@ -66,7 +72,7 @@ const goUp = () => {
         </div>
       </div>
       <div class="follow mobile-app">
-        <p class="quick_title">Mobile app</p>
+        <p class="quick_title">{{ $t("MOBILEAPP") }}</p>
         <div class="social" style="margin-top: -35px">
           <a href="https://play.google.com/store/apps/details?id=com.qtap.qtap" target="_blank"
             ><img style="width: 125px" src="/images/playmarket.png" alt=""
