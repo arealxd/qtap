@@ -187,4 +187,34 @@ window.scrollTo(0, 0);
     font-weight: 600;
   }
 }
+
+@media screen and (max-width: 575px) {
+  .title {
+    font-size: 32px;
+    margin: 0 auto;
+  }
+  .edit {
+    padding: 0 20px;
+    margin-top: 25px;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .edit-form {
+    width: 100%;
+    max-width: 100%;
+    button {
+      max-width: 234px;
+    }
+  }
+  .edit-input {
+    width: 100%;
+    max-width: 100%;
+    p {
+      font-size: 16px;
+    }
+  }
+  .rec {
+    margin-bottom: 70px;
+  }
+}
 </style>

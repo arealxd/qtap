@@ -14,6 +14,7 @@ const doSearch = () => {
 
 const navOpen = ref(false);
 const profilePopup = ref(false);
+const authorized = localStorage.getItem("userState") === "authorized";
 
 const profileClick = () => {
   if (localStorage.getItem("userState") === "authorized") {
@@ -39,7 +40,10 @@ const logout = () => {
 };
 
 const goDown = () => {
-  window.scrollTo(0, document.body.scrollHeight);
+  router.push("/");
+  setTimeout(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }, 100);
 };
 
 const token = localStorage.getItem("token");
@@ -156,15 +160,41 @@ axios
               <!-- <li class="sidemenu__item"><p>Category</p></li> -->
               <li class="sidemenu__item" @click="goDown"><p>Contact Us</p></li>
               <li class="sidemenu__item" @click="router.push('/map')"><p>Map</p></li>
-              <li class="sidemenu__item" @click="router.push('/edit-profile')">
-                <p>My profile</p>
+              <li class="sidemenu__item" @click="router.push('/notifications')" v-if="authorized">
+                <p>Notifications</p>
               </li>
-              <select class="header__city-mobile" name="cities" id="cities">
+              <li class="sidemenu__item" @click="router.push('/favorites')" v-if="authorized">
+                <p>Favorites</p>
+              </li>
+              <li class="sidemenu__item" @click="router.push('/edit-profile')" v-if="authorized">
+                <p>Edit profile</p>
+              </li>
+              <li class="sidemenu__item" @click="logout" v-if="authorized"><p>Logout</p></li>
+              <li class="sidemenu__item" @click="router.push('/auth/login')" v-if="!authorized">
+                <p>Login</p>
+              </li>
+              <select
+                @change="setNewCity(city)"
+                v-model="city"
+                class="header__city-mobile"
+                name="cities"
+                id="cities"
+              >
                 <option hidden>City</option>
                 <option value="Astana">Astana</option>
                 <option value="Almaty">Almaty</option>
                 <option value="Shymkent">Shymkent</option>
-                <option value="Aktau">Aktau</option>
+                <option value="Kyzylorda">Kyzylorda</option>
+                <option value="Atyrau">Atyrau</option>
+                <option value="Karagandy">Karagandy</option>
+                <option value="Pavlodar">Pavlodar</option>
+                <option value="Kokshetau">Kokshetau</option>
+              </select>
+              <select class="header__city-mobile" name="cities" id="cities">
+                <option hidden>Language</option>
+                <option value="en">English</option>
+                <option value="ru">Русский</option>
+                <option value="kz">Қазақша</option>
               </select>
             </ul>
           </div>
@@ -525,7 +555,7 @@ hr {
     outline: none;
     border-right: 10px solid transparent;
     cursor: pointer;
-    width: 60%;
+    width: 70%;
     margin-left: 36px;
   }
   select option {

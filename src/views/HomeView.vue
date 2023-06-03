@@ -240,6 +240,20 @@ h1 {
 }
 
 @media screen and (max-width: 575px) {
+  .select-city {
+    width: 80%;
+  }
+  .select-city_title {
+    font-weight: 700;
+    font-size: 25px;
+  }
+  .city_list {
+    align-items: center;
+    gap: 15px;
+  }
+  .intro_content {
+    display: none;
+  }
   h1 {
     font-size: 45px;
   }

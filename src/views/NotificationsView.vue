@@ -27,10 +27,10 @@ window.scrollTo(0, 0);
       <div class="notifications-one" v-for="i in notifications" :key="i.id">
         <div class="notifications-one-name">
           <img src="../assets/img/icon_notification.png" alt="" />
-          <p>{{ i.text }}</p>
+          <p class="notifications-one-name__text">{{ i.text }}</p>
         </div>
         <div class="notifications-right">
-          <p>{{ i.date }}</p>
+          <p class="notifications-right__date">{{ i.date }}</p>
           <svg
             @click="deleteNotification(i.id)"
             width="25"
@@ -141,6 +141,36 @@ window.scrollTo(0, 0);
     font-size: 18px;
     color: #000000;
     font-weight: 400;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .title {
+    font-size: 30px;
+    margin: 0 auto;
+  }
+  .notifications {
+    gap: 15px;
+    padding: 0 20px;
+    margin-top: 20px;
+  }
+  .notifications-right {
+    &__date {
+      display: none;
+    }
+  }
+  .notifications-one-name {
+    &__text {
+      font-size: 16px !important;
+    }
+  }
+  .null-fav {
+    img {
+      max-width: 150px;
+    }
+    h1 {
+      font-size: 22px;
+    }
   }
 }
 </style>

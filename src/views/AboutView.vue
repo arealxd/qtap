@@ -188,7 +188,7 @@ window.scrollTo(0, 0);
     font-size: 18px;
     text-align: center;
     padding: 8px 25px;
-    background: #109be9;
+    background: #7c3bed;
     border-radius: 27.5px;
     color: #dfdfdf;
     transition: all 0.3s ease;
@@ -198,7 +198,7 @@ window.scrollTo(0, 0);
     max-width: 580px;
   }
   button:hover {
-    background: #0e7db8;
+    background: #7616f4;
   }
   .subscribe__form-success {
     margin-bottom: -10px;
@@ -206,6 +206,42 @@ window.scrollTo(0, 0);
     font-size: 16px;
     text-align: center;
     color: #aaffaf;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .rec {
+    margin-bottom: 50px;
+  }
+  .title {
+    font-size: 35px;
+    margin: 0 auto;
+  }
+  .about__facts {
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding: 0px 20px;
+    margin-top: 60px;
+  }
+  .about__facts-title {
+    font-size: 28px !important;
+  }
+  .about__facts-description {
+    font-size: 16px !important;
+  }
+  .subscribe {
+    padding: 60px 20px;
+  }
+  .subscribe__title {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  .subscribe__description {
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 40px;
   }
 }
 </style>

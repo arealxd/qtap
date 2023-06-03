@@ -53,7 +53,12 @@ window.scrollTo(0, 0);
             {{ detail?.description }}
           </p>
           <form class="details__description-form" @submit.prevent="sendRating">
-            <star-rating :star-size="30" :read-only="rated" v-model:rating="setRating" />
+            <star-rating
+              class="star"
+              :star-size="30"
+              :read-only="rated"
+              v-model:rating="setRating"
+            />
             <button :class="{ ratedClass: rated }">{{ !rated ? "Rate" : "Rated" }}</button>
           </form>
         </div>
@@ -213,6 +218,86 @@ window.scrollTo(0, 0);
     border: none;
     border-radius: 20px;
     max-height: 310px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .details__header {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 0 20px;
+    .details__info {
+      align-items: flex-start;
+      gap: 10px;
+      &-name {
+        font-size: 20px;
+        font-weight: 700;
+        color: black;
+      }
+      &-address {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        img {
+          max-width: 20px;
+        }
+        p {
+          font-size: 16px;
+          font-weight: 500;
+          color: black;
+        }
+      }
+      &-price {
+        font-size: 16px;
+        font-weight: 500;
+        color: black;
+      }
+      &-rating {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        img {
+          max-width: 20px;
+        }
+        p {
+          font-size: 16px;
+          font-weight: 500;
+          color: black;
+        }
+      }
+    }
+  }
+  .details__description {
+    flex-direction: column;
+    align-items: center;
+    gap: 45px;
+    margin-top: 30px;
+    padding: 0 20px;
+  }
+  .details__description-title {
+    font-size: 22px !important;
+  }
+  .details__description-content {
+    font-size: 16px !important;
+  }
+  .details__description-map-title {
+    margin: 0 auto;
+    font-size: 22px !important;
+  }
+  .rec {
+    margin-bottom: 100px;
+  }
+  .details__description-form {
+    .star {
+      width: 100%;
+      margin: 0 auto;
+      justify-content: center;
+    }
+    margin-top: 0 auto;
+    button {
+      max-width: 100%;
+    }
   }
 }
 </style>

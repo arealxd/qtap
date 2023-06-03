@@ -53,10 +53,12 @@ const googleMapsUrl = ref(
   height: 100%;
   max-height: 600px;
 }
-#map {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0;
+
+@media screen and (max-width: 575px) {
+  .title {
+    font-size: 24px;
+    padding: 0 10px;
+    text-align: center;
+  }
 }
 </style>

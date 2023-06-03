@@ -65,6 +65,17 @@ const goUp = () => {
           /></a>
         </div>
       </div>
+      <div class="follow mobile-app">
+        <p class="quick_title">Mobile app</p>
+        <div class="social" style="margin-top: -35px">
+          <a href="https://play.google.com/store/apps/details?id=com.qtap.qtap" target="_blank"
+            ><img style="width: 125px" src="/images/playmarket.png" alt=""
+          /></a>
+          <a href="https://www.apple.com/ru/app-store/" target="_blank"
+            ><img style="width: 125px" src="/images/appstore.png" alt=""
+          /></a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -161,21 +172,40 @@ const goUp = () => {
   .gallery_block {
     padding: 15px 20px;
   }
+  .copyright {
+    display: none;
+  }
   .footer_nav {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    margin-top: 50px;
   }
   .logo {
     margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .contact {
     margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .quick {
     margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .follow {
     margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .quick_title {
+    margin-bottom: 0;
   }
   .gallery_text {
     font-size: 18px;

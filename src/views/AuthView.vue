@@ -458,7 +458,22 @@ h2 {
   margin-top: -15px;
   margin-bottom: 10px;
 }
-/* @media screen and (max-width: 575px) {
 
-} */
+@media screen and (max-width: 575px) {
+  .form {
+    width: 90%;
+    margin: 0 auto;
+  }
+  .btn_offer {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .sign_in {
+    margin: 0 auto;
+  }
+  h2 {
+    font-weight: 700;
+    font-size: 30px;
+  }
+}
 </style>

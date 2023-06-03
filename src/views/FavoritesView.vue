@@ -160,4 +160,29 @@ window.scrollTo(0, 0);
   font-size: 18px;
   color: #f74e0f;
 }
+
+@media screen and (max-width: 575px) {
+  .title {
+    font-size: 32px;
+    margin: 0 auto;
+  }
+  .null-fav {
+    img {
+      max-width: 150px;
+    }
+    h1 {
+      font-size: 22px;
+    }
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    margin: 0 auto;
+    margin-top: 30px;
+    width: 100%;
+    max-width: 1260px;
+    gap: 35px;
+    padding: 0 30px;
+  }
+}
 </style>
