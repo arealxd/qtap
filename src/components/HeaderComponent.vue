@@ -66,6 +66,7 @@ axios
         <!-- <p class="header__item">Blog</p> -->
         <!-- <p class="header__item">Category</p> -->
         <p class="header__item" @click="goDown">Contact Us</p>
+        <p class="header__item" @click="router.push('/map')">Map</p>
       </div>
       <img class="header__logo" src="../assets/img/logo.svg" alt="" @click="router.push('/')" />
       <div class="header__right">
@@ -154,6 +155,7 @@ axios
               <!-- <li class="sidemenu__item"><p>Blog</p></li> -->
               <!-- <li class="sidemenu__item"><p>Category</p></li> -->
               <li class="sidemenu__item" @click="goDown"><p>Contact Us</p></li>
+              <li class="sidemenu__item" @click="router.push('/map')"><p>Map</p></li>
               <li class="sidemenu__item" @click="router.push('/edit-profile')">
                 <p>My profile</p>
               </li>
@@ -263,7 +265,6 @@ axios
 }
 .header__logo {
   cursor: pointer;
-  margin-right: -80px;
 }
 .header__user-icon {
   width: 45px;
@@ -384,8 +385,8 @@ hr {
     width: 100%;
   }
   .header__active-burger {
-    margin-top: -3px;
-    margin-bottom: 23px;
+    margin-top: 17px;
+    margin-bottom: 7px;
   }
 
   #sidemenu {

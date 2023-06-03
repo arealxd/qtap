@@ -709,6 +709,15 @@ const activeCategory = ref("Cultural Recreation");
 }
 
 @media screen and (max-width: 575px) {
+  .filter__banner {
+    display: none;
+  }
+  .filter__hr {
+    display: none;
+  }
+  .filter {
+    margin-top: 0px;
+  }
   .filter__main-header {
     display: flex;
     flex-direction: column;
@@ -732,6 +741,9 @@ const activeCategory = ref("Cultural Recreation");
   .filter__main-header-cats {
     display: flex;
     flex-wrap: wrap;
+    gap: 15px;
+    border: none;
+    margin-bottom: 40px;
   }
   .events {
     justify-content: center;
@@ -741,6 +753,13 @@ const activeCategory = ref("Cultural Recreation");
   }
   .card_image {
     object-fit: cover;
+  }
+  .apply_filter {
+    margin: 0 auto;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
   }
 }
 </style>

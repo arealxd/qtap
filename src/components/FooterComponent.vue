@@ -39,6 +39,7 @@ const goUp = () => {
         <router-link class="router" to="/about"
           ><p class="quick_description">About Us</p></router-link
         >
+        <router-link class="router" to="/map"><p class="quick_description">Map</p></router-link>
         <!-- <router-link class="router" to="/blog"><p class="quick_description">Blog</p></router-link> -->
         <!-- <router-link class="router" to="/category"
           ><p class="quick_description">Category</p></router-link
@@ -157,6 +158,9 @@ const goUp = () => {
 }
 
 @media screen and (max-width: 575px) {
+  .gallery_block {
+    padding: 15px 20px;
+  }
   .footer_nav {
     flex-direction: column;
     align-items: flex-start;

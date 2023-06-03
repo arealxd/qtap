@@ -69,6 +69,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 50px;
+    flex-direction: column;
   }
 }
 </style>
