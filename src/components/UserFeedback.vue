@@ -2,6 +2,9 @@
 import { ref } from "vue";
 import StarRating from "vue-star-rating";
 import feedbackJson from "@/db/feedback.json";
+import { useI18n } from "vue-i18n";
+
+const { t, locale } = useI18n({ useScope: "global" });
 
 const firstIndex = ref(0);
 const secondIndex = ref(1);
@@ -49,23 +52,23 @@ const postFeedback = () => {
   <div class="feedback container">
     <div class="feedback_header">
       <div class="title">
-        <p class="title_first">TESTIMONIAL</p>
-        <p class="title_second">What our user say</p>
-        <p class="title_third">A brief overview of our user reviews</p>
+        <p class="title_first">{{ $t("TESTIMONIAL") }}</p>
+        <p class="title_second">{{ $t("WHAT") }}</p>
+        <p class="title_third">{{ $t("BRIEF") }}</p>
       </div>
       <div class="leave_feedback">
-        <p class="btn" @click="showFeedbackForm = !showFeedbackForm">leave your feedback</p>
+        <p class="btn" @click="showFeedbackForm = !showFeedbackForm">{{ $t("LEAVE") }}</p>
         <form v-if="showFeedbackForm" class="form_feedback" @submit.prevent="postFeedback">
           <star-rating :star-size="20" :read-only="false" v-model:rating="feedbackRating" />
           <textarea
             type="text"
             required
             v-model="feedbackText"
-            placeholder="Write a review about the platform"
+            :placeholder="$t('WRITEREVIEW')"
             rows="5"
           >
           </textarea>
-          <button type="submit">Send</button>
+          <button type="submit">{{ $t("SEND") }}</button>
         </form>
         <div class="arrows">
           <div class="left-arrow" @click="previousFeedback">

@@ -1,27 +1,33 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useI18n } from "vue-i18n";
+
+const { t, locale } = useI18n({ useScope: "global" });
+</script>
 
 <template>
   <div class="places">
-    <div class="gallery_block"><p class="gallery_text">GALLERY</p></div>
-    <h1>Unforgettable moments</h1>
+    <div class="gallery_block">
+      <p class="gallery_text">{{ $t("GALLERY") }}</p>
+    </div>
+    <h1>{{ $t("MOMENTS") }}</h1>
     <div class="images container">
       <div class="left">
         <img src="../assets/img/mountains.jpg" alt="" />
-        <p class="image_text">Mountains</p>
+        <p class="image_text">{{ $t("MOUNTAINS") }}</p>
       </div>
       <div class="right">
         <div class="right_upper">
           <img src="../assets/img/historical.jpg" alt="" />
-          <p class="image_text">Historical</p>
+          <p class="image_text">{{ $t("HISTORICAL") }}</p>
         </div>
         <div class="right_under">
           <div class="right_under-left">
             <img src="../assets/img/museums.jpg" alt="" />
-            <p class="image_text">Museums</p>
+            <p class="image_text">{{ $t("MUSEUMS") }}</p>
           </div>
           <div class="right_under-right">
             <img src="../assets/img/attractions.jpg" alt="" />
-            <p class="image_text">Attractions</p>
+            <p class="image_text">{{ $t("ATTRACTIONS") }}</p>
           </div>
         </div>
       </div>

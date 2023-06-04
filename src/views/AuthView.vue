@@ -4,6 +4,9 @@ import HeaderComponent from "../components/HeaderComponent.vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
 import { watch } from "vue";
+import { useI18n } from "vue-i18n";
+
+const { t, locale } = useI18n({ useScope: "global" });
 
 const router = useRouter();
 
@@ -122,6 +125,7 @@ const forgot = () => {
       if (result.status === 200) {
         checkEmailForgot.value = true;
         setTimeout(() => {
+          forgotEmail.value = "";
           checkEmailForgot.value = false;
           authLevel.value = "login";
         }, 2000);
@@ -173,37 +177,37 @@ const authLevel = ref("login");
   <HeaderComponent />
   <div class="form_block">
     <form @submit.prevent="login" class="form" v-if="authLevel === 'login'">
-      <h2>Sign in</h2>
+      <h2>{{ $t("SIGNIN") }}</h2>
       <div class="btn_offer">
-        <p class="new_user">New user?</p>
-        <p class="create_btn" @click="authLevel = 'register'">Create an account</p>
+        <p class="new_user">{{ $t("NEWUSER") }}</p>
+        <p class="create_btn" @click="authLevel = 'register'">{{ $t("CREATEACCOUNT") }}</p>
       </div>
       <input
         v-model="username"
         required
         class="input_email"
         type="email"
-        placeholder="Email address"
+        :placeholder="$t('EMAILADDRESS')"
       />
       <a-input-password
         v-model:value="login_password"
         required
         class="input_email input_password"
         type="password"
-        placeholder="Password"
+        :placeholder="$t('PASSWORD')"
       />
-      <p v-if="loginEmailError" class="mismatch">Wrong email!</p>
-      <p v-if="loginPasswordError" class="mismatch">Wrong password!</p>
+      <p v-if="loginEmailError" class="mismatch">{{ $t("WRONGEMAIL") }}!</p>
+      <p v-if="loginPasswordError" class="mismatch">{{ $t("WRONGPASSWORD") }}</p>
       <div class="btn_offer">
-        <p class="forgot_password" @click="authLevel = 'forgot'">Forgot password?</p>
-        <button type="submit" class="sign_in">Sign In</button>
+        <p class="forgot_password" @click="authLevel = 'forgot'">{{ $t("FORGOTPASSWORD") }}</p>
+        <button type="submit" class="sign_in">{{ $t("SIGNIN") }}</button>
       </div>
     </form>
     <form @submit.prevent="register" class="form" v-if="authLevel === 'register'">
-      <h2>Create an account</h2>
+      <h2>{{ $t("CREATEACCOUNT") }}</h2>
       <div class="btn_offer">
-        <p class="new_user">Already have an account?</p>
-        <p class="create_btn" @click="authLevel = 'login'">Sign in</p>
+        <p class="new_user">{{ $t("ALREADYHAVE") }}</p>
+        <p class="create_btn" @click="authLevel = 'login'">{{ $t("SIGNIN") }}</p>
       </div>
 
       <div class="name_input">
@@ -212,7 +216,7 @@ const authLevel = ref("login");
           class="input_email"
           style="margin-bottom: unset"
           type="text"
-          placeholder="First name"
+          :placeholder="$t('FIRSTNAME')"
           v-model="firstName"
         />
         <input
@@ -220,7 +224,7 @@ const authLevel = ref("login");
           class="input_email"
           style="margin-bottom: unset"
           type="text"
-          placeholder="Last name"
+          :placeholder="$t('LASTNAME')"
           v-model="lastName"
         />
       </div>
@@ -231,14 +235,14 @@ const authLevel = ref("login");
         min="1900"
         max="2023"
         type="number"
-        placeholder="Year of birth"
+        :placeholder="$t('YEARBIRTH')"
         v-model="yearOfBirth"
       />
       <input
         required
         class="input_email"
         type="email"
-        placeholder="Email address"
+        :placeholder="$t('EMAILADDRESS')"
         v-model="email"
       />
       <a-input-password
@@ -246,19 +250,19 @@ const authLevel = ref("login");
         required
         class="input_email input_password"
         type="password"
-        placeholder="Password"
+        :placeholder="$t('PASSWORD')"
         v-model:value="password"
       />
-      <p v-if="successRegister" class="successRegister">Check your email and confirm</p>
+      <p v-if="successRegister" class="successRegister">{{ $t("CHECKCONFIRM") }}</p>
       <div class="btn_offer">
-        <button type="submit" class="sign_up">Sign Up</button>
+        <button type="submit" class="sign_up">{{ $t("SIGNUP") }}</button>
       </div>
     </form>
     <form @submit.prevent="forgot" class="form" v-if="authLevel === 'forgot'">
-      <h2>Forgot password?</h2>
+      <h2>{{ $t("FORGOTPASSWORD") }}</h2>
       <div class="btn_offer">
         <p class="forgot_info">
-          No worriest! Just enter your email and we’ll send you a reset password link.
+          {{ $t("NOWORRIEST") }}
         </p>
       </div>
       <input
@@ -266,15 +270,15 @@ const authLevel = ref("login");
         class="input_email"
         type="email"
         v-model="forgotEmail"
-        placeholder="Email address"
+        :placeholder="$t('EMAILADDRESS')"
       />
-      <p class="successRegister" v-if="checkEmailForgot">Check your email</p>
+      <p class="successRegister" v-if="checkEmailForgot">{{ $t("CHECKEMAIL") }}</p>
       <div class="btn_offer">
-        <button type="submit" class="sign_up">Send Recovery Email</button>
+        <button type="submit" class="sign_up">{{ $t("SENDRESET") }}</button>
       </div>
       <div class="btn_offer" style="margin-top: 19px; justify-content: center">
-        <p class="new_user">Just remember?</p>
-        <p class="create_btn" @click="authLevel = 'login'">Sign in</p>
+        <p class="new_user">{{ $t("JUSTREMEMBER") }}</p>
+        <p class="create_btn" @click="authLevel = 'login'">{{ $t("SIGNIN") }}</p>
       </div>
     </form>
     <form @submit.prevent="setNewPassword" class="form" v-if="authLevel === 'createNewPassword'">
