@@ -3,35 +3,21 @@ import { ref, watch } from "vue";
 import axios from "axios";
 import MultiRangeSlider from "multi-range-slider-vue";
 import StarRating from "vue-star-rating";
-import events from "@/db/events.json";
+// import events from "@/db/events.json";
 import { useRouter } from "vue-router";
+import type { Location, Image } from "@/types/location";
 
+const city = ref(localStorage.getItem("city") || "Almaty");
 const router = useRouter();
 
 const categories = ref([
   {
     id: 1,
-    name: "All",
+    name: "All categories",
   },
   {
     id: 2,
-    name: "Leisure",
-  },
-  {
-    id: 3,
-    name: "Cultural Recreation",
-  },
-  {
-    id: 4,
-    name: "Hotels",
-  },
-  {
-    id: 5,
-    name: "Tours",
-  },
-  {
-    id: 6,
-    name: "Food",
+    name: "Select categories",
   },
 ]);
 
@@ -50,14 +36,26 @@ axios
     console.log(error);
   });
 
+const resetFilter = () => {
+  selectCategory.value = undefined;
+  selectRating.value = undefined;
+  barMinValue.value = 0;
+  barMaxValue.value = 100000;
+  activeCategory.value = "All categories";
+  getEvents();
+  getImage();
+};
+
+const selectCategory = ref();
+const selectRating = ref();
 const barMinValue = ref(0);
-const barMaxValue = ref(40000);
+const barMaxValue = ref(100000);
 const UpdateValues = (e: any) => {
   barMinValue.value = e.minValue;
   barMaxValue.value = e.maxValue;
 };
 
-const filterEvents = events;
+// const filterEvents = events;
 
 const favorites = ref<number[]>([]);
 
@@ -72,19 +70,59 @@ watch(
 );
 
 const loopQuantity = ref(9);
-const activePagination = ref<number>(0);
+// const activePagination = ref<number>(0);
 
 const myElement = ref<any>(null);
-const setPagination = (index: number) => {
-  activePagination.value = index;
-  myElement.value.scrollIntoView({ behavior: "smooth" });
-};
+// const setPagination = (index: number) => {
+//   activePagination.value = index;
+//   myElement.value.scrollIntoView({ behavior: "smooth" });
+// };
 
 const applyFilter = () => {
   myElement.value.scrollIntoView({ behavior: "smooth" });
+  getEvents();
+  getImage();
 };
 
-const activeCategory = ref("Cultural Recreation");
+const activeCategory = ref("All categories");
+
+const eventsData = ref<Location[]>([]);
+const getEvents = () => {
+  axios
+    .get<Location[]>("https://almatap-backend.onrender.com/main/mainPage", {
+      params: {
+        city: city.value,
+        category: selectCategory.value,
+        min: barMinValue.value,
+        max: barMaxValue.value,
+        rating: selectRating.value,
+      },
+    })
+    .then((res) => {
+      eventsData.value = res.data;
+      console.log(eventsData.value);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const images = ref<Image[]>([]);
+
+const getImage = () => {
+  axios
+    .get<Image[]>("https://almatap-backend.onrender.com/main/images")
+    .then((res) => {
+      images.value = res.data;
+      console.log(images.value);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+getEvents();
+getImage();
 </script>
 
 <template>
@@ -96,33 +134,122 @@ const activeCategory = ref("Cultural Recreation");
         <div class="filter__main-header_filter">
           <div class="filter__main-header_reset">
             <p>Filters</p>
-            <button>Reset</button>
+            <button type="button" @click="resetFilter">Reset</button>
           </div>
-          <div class="filter__main-header_selects" v-if="activeCategory !== 'All'">
+          <div class="filter__main-header_selects" v-if="activeCategory !== 'All categories'">
             <div class="sub-cat">
               <p class="sub-cat-header">{{ activeCategory }}</p>
               <div class="sub-cat-checkbox">
-                <input type="checkbox" id="theater" /><label for="theater">Theaters</label>
+                <input
+                  type="radio"
+                  name="cat"
+                  v-model="selectCategory"
+                  value="LEISURE"
+                  id="theater"
+                /><label for="theater">LEISURE</label>
               </div>
               <div class="sub-cat-checkbox">
-                <input type="checkbox" id="cinema" /><label for="cinema">Cinemas</label>
+                <input
+                  type="radio"
+                  name="cat"
+                  v-model="selectCategory"
+                  value="CULTURAL RECREATION"
+                  id="cinema"
+                /><label for="cinema">CULTURAL RECREATION</label>
               </div>
               <div class="sub-cat-checkbox">
-                <input type="checkbox" id="concerts" /><label for="concerts"
-                  >Concerts and festivals</label
-                >
+                <input
+                  type="radio"
+                  v-model="selectCategory"
+                  value="HOTELS"
+                  name="cat"
+                  id="concerts"
+                /><label for="concerts">HOTELS</label>
               </div>
               <div class="sub-cat-checkbox">
-                <input type="checkbox" id="exhibitions" /><label for="exhibitions"
-                  >Exhibitions</label
-                >
+                <input
+                  type="radio"
+                  name="cat"
+                  v-model="selectCategory"
+                  value="SHOPPING CENTERS"
+                  id="exhibitions"
+                /><label for="exhibitions">SHOPPING CENTERS</label>
               </div>
               <div class="sub-cat-checkbox">
-                <input type="checkbox" id="master" /><label for="master">Master classes</label>
+                <input
+                  type="radio"
+                  name="cat"
+                  v-model="selectCategory"
+                  value="TOURS"
+                  id="theater1"
+                /><label for="theater1">TOURS</label>
+              </div>
+              <div class="sub-cat-checkbox">
+                <input
+                  type="radio"
+                  name="cat"
+                  v-model="selectCategory"
+                  value="FOOD"
+                  id="theater2"
+                /><label for="theater2">FOOD</label>
+              </div>
+              <div class="sub-cat-checkbox">
+                <input
+                  type="radio"
+                  name="cat"
+                  v-model="selectCategory"
+                  value="UNUSUAL PLACES"
+                  id="theater3"
+                /><label for="theater3">UNUSUAL PLACES</label>
+              </div>
+              <div class="sub-cat-checkbox">
+                <input
+                  type="radio"
+                  name="cat"
+                  v-model="selectCategory"
+                  value="FORESTS"
+                  id="theater4"
+                /><label for="theater4">FORESTS</label>
+              </div>
+              <div class="sub-cat-checkbox">
+                <input
+                  type="radio"
+                  name="cat"
+                  v-model="selectCategory"
+                  value="GARDENS"
+                  id="theater5"
+                /><label for="theater5">GARDENS</label>
+              </div>
+              <div class="sub-cat-checkbox">
+                <input
+                  type="radio"
+                  name="cat"
+                  v-model="selectCategory"
+                  value="ZOOS"
+                  id="theater6"
+                /><label for="theater6">ZOOS</label>
+              </div>
+              <div class="sub-cat-checkbox">
+                <input
+                  type="radio"
+                  v-model="selectCategory"
+                  value="BEEKEEPING"
+                  name="cat"
+                  id="master7"
+                /><label for="master7">BEEKEEPING</label>
+              </div>
+              <div class="sub-cat-checkbox">
+                <input
+                  type="radio"
+                  v-model="selectCategory"
+                  value="FLOWER GARDENS"
+                  name="cat"
+                  id="master8"
+                /><label for="master8">FLOWER GARDENS</label>
               </div>
             </div>
           </div>
-          <div class="filter__main-header_price">
+          <div class="filter__main-header_price" v-if="false">
             <div class="price">
               <p class="price-header">Choose a date</p>
               <input class="choose_date" type="date" />
@@ -144,7 +271,7 @@ const activeCategory = ref("Cultural Recreation");
                 style="width: 235px; border: none"
                 :baseClassName="'multi-range-slider'"
                 :min="0"
-                :max="70000"
+                :max="100000"
                 :step="100"
                 :ruler="true"
                 :label="true"
@@ -158,31 +285,31 @@ const activeCategory = ref("Cultural Recreation");
             <div class="rating">
               <p class="rating-header">Rating</p>
               <div class="rating-checkbox">
-                <input type="checkbox" id="5star" /><img
+                <input type="radio" v-model="selectRating" value="5" name="cat" id="5star" /><img
                   src="/images/filterStar.png"
                   alt=""
                 /><label for="5star">5 Star</label>
               </div>
               <div class="rating-checkbox">
-                <input type="checkbox" id="4star" /><img
+                <input type="radio" v-model="selectRating" value="4" name="cat" id="4star" /><img
                   src="/images/filterStar.png"
                   alt=""
                 /><label for="4star">4 Star</label>
               </div>
               <div class="rating-checkbox">
-                <input type="checkbox" id="3star" /><img
+                <input type="radio" v-model="selectRating" value="3" name="cat" id="3star" /><img
                   src="/images/filterStar.png"
                   alt=""
                 /><label for="3star">3 Star</label>
               </div>
               <div class="rating-checkbox">
-                <input type="checkbox" id="2star" /><img
+                <input type="radio" v-model="selectRating" value="2" name="cat" id="2star" /><img
                   src="/images/filterStar.png"
                   alt=""
                 /><label for="2star">2 Star</label>
               </div>
               <div class="rating-checkbox">
-                <input type="checkbox" id="1star" /><img
+                <input type="radio" v-model="selectRating" value="1" name="cat" id="1star" /><img
                   src="/images/filterStar.png"
                   alt=""
                 /><label for="1star">1 Star</label>
@@ -231,8 +358,9 @@ const activeCategory = ref("Cultural Recreation");
               <p>{{ cat.name }}</p>
             </div>
           </div>
+          <h2 class="no-results" v-if="eventsData.length === 0">No results</h2>
           <div class="events">
-            <div
+            <!-- <div
               class="card_image-block"
               v-for="i in filterEvents.slice(0, loopQuantity)"
               :key="i.id"
@@ -265,12 +393,47 @@ const activeCategory = ref("Cultural Recreation");
                 <star-rating :star-size="15" :read-only="true" v-model:rating="i.rating" />
                 <p class="texts_price">{{ i.price }} ₸</p>
               </div>
+            </div> -->
+
+            <div
+              class="card_image-block"
+              v-for="i in eventsData.slice(0, loopQuantity)"
+              :key="i.id"
+            >
+              <img
+                class="card_image"
+                :src="images.find((img) => img.event.id === i.id)?.image"
+                alt=""
+                @click="router.push('/details/' + i.id)"
+              />
+              <img
+                v-if="!favorites.includes(i.id)"
+                @click="(e) => favorites.push(i.id)"
+                class="nofav_icon"
+                src="../assets/img/nofav.png"
+                alt=""
+              />
+              <img
+                v-else
+                @click="favorites.splice(favorites.indexOf(i.id), 1)"
+                class="nofav_icon"
+                src="../assets/img/fav.png"
+                alt=""
+              />
+              <div class="card_details" @click="router.push('/details/' + i.id)">
+                <p class="texts_title">{{ i.address }}, {{ i.city }}</p>
+                <p class="texts_description">
+                  {{ i.name }}
+                </p>
+                <star-rating :star-size="15" :read-only="true" v-model:rating="i.averageRating" />
+                <p class="texts_price">{{ i.price }} ₸</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="pagination">
+    <!-- <div class="pagination">
       <svg
         width="32"
         height="32"
@@ -307,11 +470,18 @@ const activeCategory = ref("Cultural Recreation");
           fill="#F3692E"
         />
       </svg>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <style scoped lang="scss">
+.no-results {
+  color: #727272;
+  margin: 0 auto;
+  font-size: 34px;
+  text-align: center;
+  margin-top: 30px;
+}
 .choose_date {
   border: 2px solid #109be9;
   border-radius: 4px;

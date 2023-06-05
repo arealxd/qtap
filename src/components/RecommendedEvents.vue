@@ -4,8 +4,12 @@ import StarRating from "vue-star-rating";
 import events from "@/db/events.json";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
+import axios from "axios";
+import type { Location, Image } from "@/types/location";
 
 const { t, locale } = useI18n({ useScope: "global" });
+
+const city = ref(localStorage.getItem("city") || "Almaty");
 
 const router = useRouter();
 
@@ -34,6 +38,40 @@ watch(
 );
 
 const data = events;
+
+const eventsData = ref<Location[]>([]);
+const getEvents = () => {
+  axios
+    .get<Location[]>("https://almatap-backend.onrender.com/main/mainPage", {
+      params: {
+        city: city.value,
+      },
+    })
+    .then((res) => {
+      eventsData.value = res.data;
+      console.log(eventsData.value);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const images = ref<Image[]>([]);
+
+const getImage = () => {
+  axios
+    .get<Image[]>("https://almatap-backend.onrender.com/main/images")
+    .then((res) => {
+      images.value = res.data;
+      console.log(images.value);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+getEvents();
+getImage();
 </script>
 
 <template>
@@ -47,7 +85,7 @@ const data = events;
     </div>
 
     <div class="cards" v-auto-animate="{ duration: 500 }">
-      <div class="card_image-block" v-for="i in data.slice(0, loopQuantity)" :key="i.id">
+      <!-- <div class="card_image-block" v-for="i in data.slice(0, loopQuantity)" :key="i.id">
         <img class="card_image" :src="i.image" alt="" @click="router.push('/details/' + i.id)" />
         <img
           v-if="!favorites.includes(i.id)"
@@ -69,6 +107,36 @@ const data = events;
             {{ i.name }}
           </p>
           <star-rating :star-size="15" :read-only="true" v-model:rating="i.rating" />
+          <p class="texts_price">{{ i.price }} ₸</p>
+        </div>
+      </div> -->
+      <div class="card_image-block" v-for="i in eventsData.slice(0, loopQuantity)" :key="i.id">
+        <img
+          class="card_image"
+          :src="images.find((img) => img.event.id === i.id)?.image"
+          alt=""
+          @click="router.push('/details/' + i.id)"
+        />
+        <img
+          v-if="!favorites.includes(i.id)"
+          @click="favorites.push(i.id)"
+          class="nofav_icon"
+          src="../assets/img/nofav.png"
+          alt=""
+        />
+        <img
+          v-else
+          @click="favorites.splice(favorites.indexOf(i.id), 1)"
+          class="nofav_icon"
+          src="../assets/img/fav.png"
+          alt=""
+        />
+        <div class="card_details" @click="router.push('/details/' + i.id)">
+          <p class="texts_title">{{ i.address }}, {{ i.city }}</p>
+          <p class="texts_description">
+            {{ i.name }}
+          </p>
+          <star-rating :star-size="15" :read-only="true" v-model:rating="i.averageRating" />
           <p class="texts_price">{{ i.price }} ₸</p>
         </div>
       </div>
@@ -127,7 +195,7 @@ const data = events;
 .cards {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   /* align-items: center; */
   margin: 0 auto;
   margin-top: 20px;
