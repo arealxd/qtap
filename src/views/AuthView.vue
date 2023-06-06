@@ -61,6 +61,7 @@ const login = () => {
           username.value = "";
           login_password.value = "";
           router.push("/");
+          getProfile();
         }
       }
     })
@@ -171,6 +172,26 @@ const setNewPassword = () => {
 };
 
 const authLevel = ref("login");
+
+const token = localStorage.getItem("token");
+const myProfile = ref();
+
+const getProfile = () => {
+  axios
+    .get("https://almatap-backend.onrender.com/users", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => {
+      myProfile.value = res.data;
+      localStorage.setItem("name", myProfile.value.name);
+      localStorage.setItem("surname", myProfile.value.surname);
+      localStorage.setItem("yearOfBirth", myProfile.value.yearOfBirth);
+      localStorage.setItem("email", myProfile.value.email);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 </script>
 
 <template>

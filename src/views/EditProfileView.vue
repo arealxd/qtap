@@ -2,6 +2,7 @@
 import { ref, watch } from "vue";
 import HeaderComponent from "../components/HeaderComponent.vue";
 import FooterComponent from "../components/FooterComponent.vue";
+import axios from "axios";
 
 const firstName = ref<any>(localStorage.getItem("name"));
 const lastName = ref<any>(localStorage.getItem("surname"));
@@ -68,15 +69,15 @@ window.scrollTo(0, 0);
         <div class="edit-blocks">
           <div class="edit-input">
             <p>Email address</p>
-            <input type="text" v-model="email" placeholder="Email address" />
+            <input type="email" v-model="email" placeholder="Email address" />
           </div>
           <div class="edit-input">
             <p>Password</p>
-            <input type="text" v-model="password" placeholder="Password" />
+            <input type="password" v-model="password" placeholder="Password" />
           </div>
           <div class="edit-input">
             <p>Confirm password</p>
-            <input type="text" v-model="confirmPassword" placeholder="Confirm password" />
+            <input type="password" v-model="confirmPassword" placeholder="Confirm password" />
           </div>
         </div>
       </div>

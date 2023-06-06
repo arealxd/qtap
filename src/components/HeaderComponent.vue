@@ -50,19 +50,23 @@ const goDown = () => {
   }, 100);
 };
 
-const token = localStorage.getItem("token");
-const myProfile = ref();
+// const token = localStorage.getItem("token");
+// const myProfile = ref();
 
-axios
-  .get("https://almatap-backend.onrender.com/users", {
-    headers: { Authorization: `Bearer ${token}` },
-  })
-  .then((res) => {
-    myProfile.value = res.data;
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+// axios
+//   .get("https://almatap-backend.onrender.com/users", {
+//     headers: { Authorization: `Bearer ${token}` },
+//   })
+//   .then((res) => {
+//     myProfile.value = res.data;
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+const firstName = ref<any>(localStorage.getItem("name"));
+const lastName = ref<any>(localStorage.getItem("surname"));
+const email = ref<any>(localStorage.getItem("email"));
 
 const lang = ref(localStorage.getItem("lang") ?? "en");
 
@@ -133,8 +137,8 @@ const setLang = (newLang: string | null) => {
 
         <div class="profile-popup" v-if="profilePopup">
           <img src="../assets/img/userAva.png" alt="" />
-          <p class="user-name">{{ myProfile?.name }} {{ myProfile?.surname }}</p>
-          <p class="user-email">{{ myProfile?.email }}</p>
+          <p class="user-name">{{ firstName }} {{ lastName }}</p>
+          <p class="user-email">{{ email }}</p>
           <hr />
           <div class="notification" @click="router.push('/notifications')">
             <img src="../assets/img/icon_notification.png" alt="" />
