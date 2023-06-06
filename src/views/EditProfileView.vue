@@ -2,7 +2,7 @@
 import { ref, watch } from "vue";
 import HeaderComponent from "../components/HeaderComponent.vue";
 import FooterComponent from "../components/FooterComponent.vue";
-import axios from "axios";
+// import axios from "axios";
 
 const firstName = ref<any>(localStorage.getItem("name"));
 const lastName = ref<any>(localStorage.getItem("surname"));
