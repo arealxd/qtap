@@ -9,8 +9,14 @@ import FooterComponent from "../components/FooterComponent.vue";
 import UserFeedback from "../components/UserFeedback.vue";
 import FilterComponent from "../components/FilterComponent.vue";
 import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const { t, locale } = useI18n({ useScope: "global" });
+
+const filterComponentRef = ref();
+
 const selectCity = ref(true);
 if (localStorage.getItem("city") !== null) {
   selectCity.value = false;
@@ -26,10 +32,22 @@ const setCity = () => {
 };
 
 window.scrollTo(0, 0);
+
+const gettedCat = ref();
+const getEmit = (e: any) => {
+  gettedCat.value = e;
+  filterComponentRef.value.$el.scrollIntoView({ behavior: "smooth" });
+};
+
+const searchValue = ref();
+const getSearch = (e: any) => {
+  searchValue.value = e;
+  filterComponentRef.value.$el.scrollIntoView({ behavior: "smooth" });
+};
 </script>
 
 <template>
-  <HeaderComponent v-if="!selectCity" />
+  <HeaderComponent v-if="!selectCity" @search="getSearch" />
   <div class="banner">
     <div v-if="!selectCity">
       <h1>{{ $t("TRAVEL") }}</h1>
@@ -105,9 +123,9 @@ window.scrollTo(0, 0);
     </div>
   </div>
   <template v-if="!selectCity">
-    <CategoriesComponent />
+    <CategoriesComponent @category="getEmit" />
     <RecommendedEvents />
-    <FilterComponent />
+    <FilterComponent :sendCategory="gettedCat" :sendSearch="searchValue" ref="filterComponentRef" />
     <OurPartners />
     <UnforgettableMoments />
     <UserFeedback />

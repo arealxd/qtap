@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-dupe-v-else-if -->
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import axios from "axios";
@@ -7,8 +8,35 @@ import StarRating from "vue-star-rating";
 import { useRouter } from "vue-router";
 import type { Location, Image } from "@/types/location";
 
+const formatToKZT = (number: number, ceil: boolean = false): string => {
+  return new Intl.NumberFormat("fr-FR").format(ceil ? Math.ceil(number) : number) + " ₸";
+};
+
 const city = ref(localStorage.getItem("city") || "Almaty");
 const router = useRouter();
+
+const props = defineProps(["sendCategory", "sendSearch"]);
+watch(
+  () => props.sendCategory,
+  (newValue) => {
+    console.log(newValue);
+    selectCategory.value = newValue;
+    activeCategory.value = "Select categories";
+    getEvents();
+    getImage();
+  }
+);
+
+const searchValue = ref();
+watch(
+  () => props.sendSearch,
+  (newValue) => {
+    console.log(newValue);
+    searchValue.value = newValue;
+    doSearch();
+    getImage();
+  }
+);
 
 const categories = ref([
   {
@@ -107,6 +135,25 @@ const getEvents = () => {
     });
 };
 
+const favEventsData = ref<Location[]>([]);
+const justGetEventsForFav = () => {
+  axios
+    .get<Location[]>("https://almatap-backend.onrender.com/main/mainPage", {
+      params: {
+        city: city.value,
+      },
+    })
+    .then((res) => {
+      favEventsData.value = res.data;
+      localStorage.setItem("data", JSON.stringify(favEventsData.value));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+justGetEventsForFav();
+
 const images = ref<Image[]>([]);
 
 const getImage = () => {
@@ -115,6 +162,21 @@ const getImage = () => {
     .then((res) => {
       images.value = res.data;
       console.log(images.value);
+      localStorage.setItem("images", JSON.stringify(images.value));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const doSearch = () => {
+  let formData = new FormData();
+  formData.append("name", searchValue.value);
+  axios
+    .post("https://almatap-backend.onrender.com/main/search", formData)
+    .then((res) => {
+      eventsData.value = res.data;
+      console.log(eventsData.value);
     })
     .catch((err) => {
       console.log(err);
@@ -358,8 +420,11 @@ getImage();
               <p>{{ cat.name }}</p>
             </div>
           </div>
-          <h2 class="no-results" v-if="eventsData.length === 0">No results</h2>
-          <div class="events">
+          <div v-if="eventsData.length === 0 && images.length === 0" class="loader"></div>
+          <h2 class="no-results" v-else-if="eventsData.length < 1 && images.length !== 0">
+            No results
+          </h2>
+          <div v-else class="events">
             <!-- <div
               class="card_image-block"
               v-for="i in filterEvents.slice(0, loopQuantity)"
@@ -426,7 +491,7 @@ getImage();
                   {{ i.name }}
                 </p>
                 <star-rating :star-size="15" :read-only="true" v-model:rating="i.averageRating" />
-                <p class="texts_price">{{ i.price }} ₸</p>
+                <p class="texts_price">{{ formatToKZT(i.price) }}</p>
               </div>
             </div>
           </div>
@@ -475,6 +540,41 @@ getImage();
 </template>
 
 <style scoped lang="scss">
+.loader {
+  width: calc(100px - 14px);
+  height: 50px;
+  position: relative;
+  animation: flippx 1s infinite linear;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+.loader:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ff3d00;
+  transform-origin: -14px 50%;
+  animation: spin 0.5s infinite linear;
+}
+@keyframes flippx {
+  0%,
+  49% {
+    transform: scaleX(1);
+  }
+  50%,
+  100% {
+    transform: scaleX(-1);
+  }
+}
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .no-results {
   color: #727272;
   margin: 0 auto;

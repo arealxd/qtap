@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
+
+const emit = defineEmits(["category"]);
 
 const { t, locale } = useI18n({ useScope: "global" });
 
@@ -16,6 +18,16 @@ const categoriesShows = () => {
     showAll.value = true;
   }
 };
+
+const selectedCategory = ref();
+
+watch(selectedCategory, () => {
+  sendEmit();
+});
+
+const sendEmit = () => {
+  emit("category", selectedCategory.value);
+};
 </script>
 
 <template>
@@ -27,53 +39,61 @@ const categoriesShows = () => {
       </div>
     </div>
     <div class="categories__list" v-auto-animate="{ duration: 500 }">
-      <div class="categories__category">
+      <div class="categories__category" @click="selectedCategory = 'LEISURE'">
         <img class="categories__category-image" src="../assets/img/cat_1.png" alt="" />
-        <p class="categories__category-name">leisure</p>
+        <p class="categories__category-name">LEISURE</p>
       </div>
-      <div class="categories__category">
+      <div class="categories__category" @click="selectedCategory = 'CULTURAL RECREATION'">
         <img class="categories__category-image" src="../assets/img/cat_2.png" alt="" />
-        <p class="categories__category-name">cultural recreation</p>
+        <p class="categories__category-name">CULTURAL RECREATION</p>
       </div>
-      <div class="categories__category">
+      <div class="categories__category" @click="selectedCategory = 'HOTELS'">
         <img class="categories__category-image" src="../assets/img/cat_3.png" alt="" />
         <p class="categories__category-name">HOTELS</p>
       </div>
-      <div class="categories__category">
+      <div class="categories__category" @click="selectedCategory = 'SHOPPING CENTERS'">
         <img class="categories__category-image" src="../assets/img/cat_4.png" alt="" />
-        <p class="categories__category-name">shopping centers</p>
+        <p class="categories__category-name">SHOPPING CENTERS</p>
       </div>
-      <div class="categories__category">
+      <div class="categories__category" @click="selectedCategory = 'TOURS'">
         <img class="categories__category-image" src="../assets/img/cat_5.png" alt="" />
-        <p class="categories__category-name">tours</p>
+        <p class="categories__category-name">TOURS</p>
       </div>
-      <div class="categories__category">
+      <div class="categories__category" @click="selectedCategory = 'FOOD'">
         <img class="categories__category-image" src="../assets/img/cat_6.png" alt="" />
-        <p class="categories__category-name">food</p>
+        <p class="categories__category-name">FOOD</p>
       </div>
-      <div v-if="!showAll" class="categories__category">
+      <div
+        v-if="!showAll"
+        class="categories__category"
+        @click="selectedCategory = 'UNUSUAL PLACES'"
+      >
         <img class="categories__category-image" src="../assets/img/cat_7.png" alt="" />
-        <p class="categories__category-name">Unusual places</p>
+        <p class="categories__category-name">UNUSUAL PLACES</p>
       </div>
-      <div v-if="!showAll" class="categories__category">
+      <div v-if="!showAll" class="categories__category" @click="selectedCategory = 'FORESTS'">
         <img class="categories__category-image" src="../assets/img/cat_8.png" alt="" />
-        <p class="categories__category-name">Forests</p>
+        <p class="categories__category-name">FORESTS</p>
       </div>
-      <div v-if="!showAll" class="categories__category">
+      <div v-if="!showAll" class="categories__category" @click="selectedCategory = 'GARDENS'">
         <img class="categories__category-image" src="../assets/img/cat_9.png" alt="" />
-        <p class="categories__category-name">Gardens</p>
+        <p class="categories__category-name">GARDENS</p>
       </div>
-      <div v-if="!showAll" class="categories__category">
+      <div v-if="!showAll" class="categories__category" @click="selectedCategory = 'ZOOS'">
         <img class="categories__category-image" src="../assets/img/cat_10.png" alt="" />
-        <p class="categories__category-name">Zoos</p>
+        <p class="categories__category-name">ZOOS</p>
       </div>
-      <div v-if="!showAll" class="categories__category">
+      <div v-if="!showAll" class="categories__category" @click="selectedCategory = 'BEEKEEPING'">
         <img class="categories__category-image" src="../assets/img/cat_11.png" alt="" />
-        <p class="categories__category-name">Beekeeping</p>
+        <p class="categories__category-name">BEEKEEPING</p>
       </div>
-      <div v-if="!showAll" class="categories__category">
+      <div
+        v-if="!showAll"
+        class="categories__category"
+        @click="selectedCategory = 'FLOWER GARDENS'"
+      >
         <img class="categories__category-image" src="../assets/img/cat_12.png" alt="" />
-        <p class="categories__category-name">flower gardens</p>
+        <p class="categories__category-name">FLOWER GARDENS</p>
       </div>
     </div>
   </div>

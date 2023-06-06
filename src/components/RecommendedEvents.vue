@@ -7,6 +7,10 @@ import { useI18n } from "vue-i18n";
 import axios from "axios";
 import type { Location, Image } from "@/types/location";
 
+const formatToKZT = (number: number, ceil: boolean = false): string => {
+  return new Intl.NumberFormat("fr-FR").format(ceil ? Math.ceil(number) : number) + " ₸";
+};
+
 const { t, locale } = useI18n({ useScope: "global" });
 
 const city = ref(localStorage.getItem("city") || "Almaty");
@@ -84,7 +88,8 @@ getImage();
       </div>
     </div>
 
-    <div class="cards" v-auto-animate="{ duration: 500 }">
+    <span v-if="eventsData.length === 0 || images.length === 0" class="loader"></span>
+    <div v-else class="cards" v-auto-animate="{ duration: 500 }">
       <!-- <div class="card_image-block" v-for="i in data.slice(0, loopQuantity)" :key="i.id">
         <img class="card_image" :src="i.image" alt="" @click="router.push('/details/' + i.id)" />
         <img
@@ -137,7 +142,7 @@ getImage();
             {{ i.name }}
           </p>
           <star-rating :star-size="15" :read-only="true" v-model:rating="i.averageRating" />
-          <p class="texts_price">{{ i.price }} ₸</p>
+          <p class="texts_price">{{ formatToKZT(i.price) }}</p>
         </div>
       </div>
     </div>
@@ -145,6 +150,41 @@ getImage();
 </template>
 
 <style scoped>
+.loader {
+  width: calc(100px - 14px);
+  height: 50px;
+  position: relative;
+  animation: flippx 1s infinite linear;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+.loader:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ff3d00;
+  transform-origin: -14px 50%;
+  animation: spin 0.5s infinite linear;
+}
+@keyframes flippx {
+  0%,
+  49% {
+    transform: scaleX(1);
+  }
+  50%,
+  100% {
+    transform: scaleX(-1);
+  }
+}
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .rec {
   margin-top: 90px;
   width: 100%;

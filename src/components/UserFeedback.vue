@@ -41,6 +41,14 @@ const feedbackRating = ref(0);
 const feedbackText = ref("");
 
 const postFeedback = () => {
+  feedback.value.push({
+    id: feedback.value.length + 1,
+    name: "Platform User",
+    role: "Treveller",
+    rating: feedbackRating.value,
+    description: feedbackText.value,
+    image: "https://picsum.photos/200/300",
+  });
   console.log("feedback posted: " + feedbackText.value + " " + feedbackRating.value);
   showFeedbackForm.value = false;
   feedbackRating.value = 0;

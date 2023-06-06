@@ -4,12 +4,18 @@ import HeaderComponent from "../components/HeaderComponent.vue";
 import FooterComponent from "../components/FooterComponent.vue";
 import { useRoute } from "vue-router";
 import StarRating from "vue-star-rating";
-import events from "@/db/events.json";
+// import events from "@/db/events.json";
+import type { Location, Image } from "@/types/location";
+import axios from "axios";
+
+const formatToKZT = (number: number, ceil: boolean = false): string => {
+  return new Intl.NumberFormat("fr-FR").format(ceil ? Math.ceil(number) : number) + " ₸";
+};
 
 const setRating = ref(0);
-const data = events;
+// const data = events;
 const route = useRoute();
-const detail = data.find((item) => item.id === Number(route.params.id));
+// const detail = data.find((item) => item.id === Number(route.params.id));
 
 const rated = ref(false);
 const sendRating = () => {
@@ -18,31 +24,61 @@ const sendRating = () => {
 };
 
 window.scrollTo(0, 0);
+
+const images = ref<Image[]>([]);
+const getImage = () => {
+  axios
+    .get<Image[]>("https://almatap-backend.onrender.com/main/images")
+    .then((res) => {
+      images.value = res.data;
+      console.log(images.value);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const detailData = ref<Location>();
+const getDetail = () => {
+  axios
+    .get<Location>("https://almatap-backend.onrender.com/main/event/" + route.params.id, {})
+    .then((res) => {
+      detailData.value = res.data;
+      console.log(detailData.value);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+getDetail();
+getImage();
 </script>
 
 <template>
   <HeaderComponent />
   <div class="rec">
-    <div class="details" v-auto-animate="{ duration: 500 }">
+    <span v-if="detailData === undefined || images.length === 0" class="loader"></span>
+    <div v-else class="details" v-auto-animate="{ duration: 500 }">
       <div class="details__header">
-        <img :src="detail?.image" alt="" />
+        <img :src="images.find((img) => img.event.id === Number(route.params.id))?.image" alt="" />
         <div class="details__info">
-          <p class="details__info-name">{{ detail?.name }}</p>
+          <p class="details__info-name">{{ detailData?.name }}</p>
           <div class="details__info-address">
             <img src="/images/address-location-map-svgrepo-com.svg" alt="" />
-            <p>{{ detail?.address }}</p>
+            <p>{{ detailData?.address }}, {{ detailData?.city }}</p>
           </div>
           <div class="details__info-address">
             <img src="/images/time-svgrepo-com.svg" alt="" />
-            <p>{{ detail?.date }}</p>
+            <p>{{ detailData?.expireAt }}</p>
           </div>
           <div class="details__info-address">
             <img src="/images/price-ui-svgrepo-com.svg" alt="" />
-            <p class="details__info-price">{{ detail?.price }} ₸</p>
+            <p class="details__info-price">{{ formatToKZT(Number(detailData?.price)) }}</p>
           </div>
           <div class="details__info-rating">
             <img src="/images/star-svgrepo-com.svg" alt="" />
-            <p>{{ detail?.rating }}.0</p>
+            <p>{{ detailData?.averageRating }}.0</p>
           </div>
         </div>
       </div>
@@ -50,7 +86,7 @@ window.scrollTo(0, 0);
         <div class="details__description-text">
           <p class="details__description-title">Description</p>
           <p class="details__description-content">
-            {{ detail?.description }}
+            {{ detailData?.description }}
           </p>
           <form class="details__description-form" @submit.prevent="sendRating">
             <star-rating
@@ -71,7 +107,7 @@ window.scrollTo(0, 0);
             scrolling="no"
             marginheight="0"
             marginwidth="0"
-            :src="`https://maps.google.com/maps?width=100%25&amp;height=420&amp;hl=en&amp;q=${detail?.lat},${detail?.long}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed`"
+            :src="`https://maps.google.com/maps?width=100%25&amp;height=420&amp;hl=en&amp;q=${detailData?.lat},${detailData?.longM}&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed`"
           ></iframe>
         </div>
       </div>
@@ -81,6 +117,41 @@ window.scrollTo(0, 0);
 </template>
 
 <style scoped lang="scss">
+.loader {
+  width: calc(100px - 14px);
+  height: 50px;
+  position: relative;
+  animation: flippx 1s infinite linear;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+.loader:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #ff3d00;
+  transform-origin: -14px 50%;
+  animation: spin 0.5s infinite linear;
+}
+@keyframes flippx {
+  0%,
+  49% {
+    transform: scaleX(1);
+  }
+  50%,
+  100% {
+    transform: scaleX(-1);
+  }
+}
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .rec {
   margin-top: 30px;
   width: 100%;

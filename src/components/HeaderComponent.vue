@@ -8,9 +8,11 @@ const { t, locale } = useI18n({ useScope: "global" });
 const router = useRouter();
 const searchValue = ref("");
 
+const emit = defineEmits(["search"]);
+
 const doSearch = () => {
-  console.log(searchValue.value);
   navOpen.value = false;
+  emit("search", searchValue.value);
   searchValue.value = "";
 };
 

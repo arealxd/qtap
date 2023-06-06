@@ -14,7 +14,7 @@ const subscribe = () => {
   setTimeout(() => {
     successSubscribe.value = false;
     email.value = "";
-  }, 2000);
+  }, 3000);
 };
 
 window.scrollTo(0, 0);
@@ -196,11 +196,11 @@ window.scrollTo(0, 0);
     background: #7616f4;
   }
   .subscribe__form-success {
-    margin-bottom: -10px;
+    margin-bottom: -40px;
     font-weight: 500;
     font-size: 16px;
     text-align: center;
-    color: #aaffaf;
+    color: #000000;
   }
 }
 

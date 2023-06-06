@@ -3,8 +3,20 @@ import HeaderComponent from "../components/HeaderComponent.vue";
 import FooterComponent from "../components/FooterComponent.vue";
 import { ref, watch } from "vue";
 import StarRating from "vue-star-rating";
-import events from "@/db/events.json";
+// import events from "@/db/events.json";
 import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
+import type { Location, Image } from "@/types/location";
+
+const formatToKZT = (number: number, ceil: boolean = false): string => {
+  return new Intl.NumberFormat("fr-FR").format(ceil ? Math.ceil(number) : number) + " ₸";
+};
+
+const images = ref<Image[]>([]);
+images.value = JSON.parse(localStorage.getItem("images") || "[]");
+console.log(images.value);
+
+const router = useRouter();
 
 const { t, locale } = useI18n({ useScope: "global" });
 
@@ -20,9 +32,10 @@ watch(
   { deep: true }
 );
 
-const data = events;
+const data = ref<Location[]>([]);
+data.value = JSON.parse(localStorage.getItem("data") || "[]");
 
-const onlyFavs = ref(data.filter((item) => favorites.value.includes(item.id)));
+const onlyFavs = ref(data.value.filter((item) => favorites.value.includes(item.id)));
 
 const deleteFav = (id: number) => {
   favorites.value.splice(favorites.value.indexOf(id), 1);
@@ -44,7 +57,12 @@ window.scrollTo(0, 0);
     </div>
     <div class="cards" v-auto-animate="{ duration: 500 }" v-if="onlyFavs.length > 0">
       <div class="card_image-block" v-for="i in onlyFavs" :key="i.id">
-        <img class="card_image" :src="i.image" alt="" />
+        <img
+          @click="router.push('/details/' + i.id)"
+          class="card_image"
+          :src="images.find((img) => img.event.id === i.id)?.image"
+          alt=""
+        />
         <img
           v-if="!favorites.includes(i.id)"
           @click="favorites.push(i.id)"
@@ -59,13 +77,13 @@ window.scrollTo(0, 0);
           src="../assets/img/fav.png"
           alt=""
         />
-        <div class="card_details">
+        <div class="card_details" @click="router.push('/details/' + i.id)">
           <p class="texts_title">{{ i.address }}</p>
           <p class="texts_description">
             {{ i.name }}
           </p>
-          <star-rating :star-size="15" :read-only="true" v-model:rating="i.rating" />
-          <p class="texts_price">{{ i.price }} ₸</p>
+          <star-rating :star-size="15" :read-only="true" v-model:rating="i.averageRating" />
+          <p class="texts_price">{{ formatToKZT(i.price) }}</p>
         </div>
       </div>
     </div>
@@ -126,6 +144,7 @@ window.scrollTo(0, 0);
 }
 .card_image-block {
   position: relative;
+  cursor: pointer;
 }
 .card_image {
   width: 100%;
@@ -147,6 +166,7 @@ window.scrollTo(0, 0);
   width: 100%;
   max-width: 250px;
   margin-top: 15px;
+  cursor: pointer;
 }
 .texts_title {
   font-weight: 400;
