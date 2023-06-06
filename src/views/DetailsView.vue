@@ -76,10 +76,10 @@ getImage();
             <img src="/images/price-ui-svgrepo-com.svg" alt="" />
             <p class="details__info-price">{{ formatToKZT(Number(detailData?.price)) }}</p>
           </div>
-          <!-- <div class="details__info-rating">
+          <div class="details__info-rating">
             <img src="/images/star-svgrepo-com.svg" alt="" />
             <p>{{ detailData?.averageRating }}.0</p>
-          </div> -->
+          </div>
         </div>
       </div>
       <div class="details__description">

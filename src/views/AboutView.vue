@@ -3,6 +3,7 @@ import { ref } from "vue";
 import HeaderComponent from "../components/HeaderComponent.vue";
 import FooterComponent from "../components/FooterComponent.vue";
 import { useI18n } from "vue-i18n";
+import axios from "axios";
 
 const { t, locale } = useI18n({ useScope: "global" });
 
@@ -12,8 +13,18 @@ const email = ref("");
 const subscribe = () => {
   successSubscribe.value = true;
   setTimeout(() => {
+    let formData = new FormData();
+    formData.append("email", email.value);
     successSubscribe.value = false;
     email.value = "";
+    axios
+      .post("https://almatap-backend.onrender.com/main/subscribe", formData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, 3000);
 };
 
