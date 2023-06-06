@@ -53,6 +53,8 @@ const getDetail = () => {
 
 getDetail();
 getImage();
+
+const authorized = ref(localStorage.getItem("userState") === "authorized");
 </script>
 
 <template>
@@ -88,7 +90,7 @@ getImage();
           <p class="details__description-content">
             {{ detailData?.description }}
           </p>
-          <form class="details__description-form" @submit.prevent="sendRating">
+          <form class="details__description-form" @submit.prevent="sendRating" v-if="authorized">
             <star-rating
               class="star"
               :star-size="30"

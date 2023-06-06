@@ -60,8 +60,10 @@ const login = () => {
           localStorage.setItem("token", result.data.token);
           username.value = "";
           login_password.value = "";
-          router.push("/");
           getProfile();
+          setTimeout(() => {
+            router.push("/");
+          }, 1000);
         }
       }
     })
